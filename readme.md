@@ -38,6 +38,15 @@ System logs are hashed into Merkle trees and anchored on Ethereum (Sepolia testn
 - **Merkle hashing:** Poseidon hash (circomlib)
 - **Trusted setup:** Hermez ceremony ptau (powersOfTau28_hez_final_16)
 
+## Real-World Applications
+
+This system is useful whenever a verifier needs assurance about logs they are **not allowed to read**:
+- **Regulatory audits** — prove to a regulator that an incident was detected and contained within the required timeframe, without handing over your full internal security log
+- **Cloud SLA verification** — a cloud provider proves to a customer that no unauthorized access occurred against their tenant, without exposing shared infrastructure logs containing other customers' data
+- **Cross-organization security audits** — prove your security posture to a partner or vendor ("no critical incidents this quarter") without revealing internal operational details
+- **Cyber-insurance claims** — prove to an insurer that a claimed incident matches policy terms, without disclosing the full log archive they could use to dispute your claim
+- **Healthcare & financial compliance** — prove access-control policies were followed without exposing the underlying patient or transaction records referenced in those logs
+
 ## Setup
 
 ### 1. Install dependencies
@@ -83,7 +92,7 @@ npx hardhat run scripts/verify_onchain.js --network sepolia
 ```
 
 ## Benchmark Results (batch size = 8 entries)
-
+```
 | Metric | Value |
 |--------|-------|
 | Witness generation | ~120ms |
@@ -92,15 +101,15 @@ npx hardhat run scripts/verify_onchain.js --network sepolia
 | Root anchoring gas | 145,191 |
 | ZK proof verification gas | 231,374 |
 | Privacy overhead | ~60% extra gas |
-
+```
 ## Deployed Contracts (Sepolia)
-
+```
 | Contract | Address |
 |----------|---------|
 | LogAnchor | `0xd2fBd6579f069481CF43ecdB1a91CC74D1aE60f8` |
 | LogVerifier | `0xfB0B444EEe2d6C83AE957C6EAfC8b62a4F232934` |
-
+```
 ## Team
 
-- **Arnav** — ZK circuits, smart contracts, blockchain pipeline
-- **[Teammate]** — Log generation, pipeline integration
+- **Arnav Gundewar** — ZK circuits, smart contracts, blockchain pipeline
+- **Taronish Davar** — Log generation, pipeline integration
