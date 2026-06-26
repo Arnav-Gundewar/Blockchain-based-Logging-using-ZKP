@@ -1,0 +1,38 @@
+[
+  {
+    "batch": "batch_1",
+    "valid": "1",
+    "root": "14321190450841200513...",
+    "threshold": "4",
+    "witnessMs": 126,
+    "proofMs": 1245,
+    "verifyMs": 553
+  },
+  {
+    "batch": "batch_2",
+    "valid": "0",
+    "root": "19312528703859334457...",
+    "threshold": "4",
+    "witnessMs": 112,
+    "proofMs": 1183,
+    "verifyMs": 551
+  },
+  {
+    "batch": "batch_3",
+    "valid": "1",
+    "root": "31868253274708532645...",
+    "threshold": "4",
+    "witnessMs": 120,
+    "proofMs": 1140,
+    "verifyMs": 518
+  },
+  {
+    "batch": "batch_4",
+    "valid": "0",
+    "root": "13643564843677648928...",
+    "threshold": "4",
+    "witnessMs": 159,
+    "proofMs": 1166,
+    "verifyMs": 536
+  }
+]

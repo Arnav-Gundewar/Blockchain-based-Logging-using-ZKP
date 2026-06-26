@@ -1,0 +1,34 @@
+[
+  {
+    "batch": "batch_1",
+    "proofValid": true,
+    "rootMatches": true,
+    "verified": true,
+    "valid": "1",
+    "threshold": "4"
+  },
+  {
+    "batch": "batch_2",
+    "proofValid": true,
+    "rootMatches": true,
+    "verified": true,
+    "valid": "0",
+    "threshold": "4"
+  },
+  {
+    "batch": "batch_3",
+    "proofValid": true,
+    "rootMatches": true,
+    "verified": true,
+    "valid": "1",
+    "threshold": "4"
+  },
+  {
+    "batch": "batch_4",
+    "proofValid": true,
+    "rootMatches": true,
+    "verified": true,
+    "valid": "0",
+    "threshold": "4"
+  }
+]

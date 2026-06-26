@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment (contains private key - NEVER commit this)
+.env
+
+# Powers of tau (too large for GitHub - redownload from storage.googleapis.com/zkevm/ptau/)
+*.ptau
+
+# Hardhat build artifacts
+artifacts/
+cache/
+
+# Witness files (regeneratable)
+*.wtns
+
+# Hardhat ignition
+ignition/
+
+# OS files
+.DS_Store
+Thumbs.db
