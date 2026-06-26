@@ -8,8 +8,9 @@ System logs are hashed into Merkle trees and anchored on Ethereum (Sepolia testn
 
 **The verifier learns only:** ✅ or ❌ + the Merkle root + the threshold.  
 **The verifier never sees:** log entries, IPs, users, event types, or counts.
-
 ## Project Structure
+
+```
 ├── circuits/
 │   ├── severity_check.circom       # Single entry threshold check
 │   ├── count_check.circom          # Batch suspicious event count
@@ -29,6 +30,7 @@ System logs are hashed into Merkle trees and anchored on Ethereum (Sepolia testn
 ├── build_merkle.js                 # Build Merkle trees from log batches
 ├── dashboard.html                  # Journey-style demo UI
 └── hardhat.config.js               # Hardhat configuration
+```
 ## Tech Stack
 
 - **ZK circuits:** Circom 2.2.3 + snarkjs 0.7.6 (Groth16)
