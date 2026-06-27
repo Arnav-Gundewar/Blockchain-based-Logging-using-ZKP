@@ -434,7 +434,7 @@ async function runProving(){
     document.getElementById(`count-row-${name}`).classList.remove('running');
     document.getElementById(`count-row-${name}`).classList.add(countPass?'done-pass':'done-fail');
     document.getElementById(`count-status-${name}`).textContent=`${countPass?'✓ PASS':'✗ FAIL'} · ${countMs}ms`;
-    document.getElementById(`count-detail-${name}`).textContent=`${suspCount} suspicious · threshold 4`;
+    document.getElementById(`count-detail-${name}`).textContent=`threshold: 4 · proof generated`;
 
     // Severity circuit
     document.getElementById(`sev-row-${name}`).classList.add('running');
@@ -447,7 +447,7 @@ async function runProving(){
     document.getElementById(`sev-row-${name}`).classList.remove('running');
     document.getElementById(`sev-row-${name}`).classList.add(sevPass?'done-pass':'done-fail');
     document.getElementById(`sev-status-${name}`).textContent=`${sevPass?'✓ PASS':'✗ FAIL'} · ${sevMs}ms`;
-    document.getElementById(`sev-detail-${name}`).textContent=`max severity ${maxSev} · threshold 5`;
+    document.getElementById(`sev-detail-${name}`).textContent=`threshold: 5 · proof generated`;
 
     document.getElementById(`batch-status-${name}`).textContent='Done';
     state.proofs[name]={ countPass, sevPass, countMs, sevMs, suspCount, maxSev };
@@ -505,8 +505,8 @@ async function runVerification(){
     const countEl=document.getElementById(`pred-count-${name}`);
     countEl.querySelector('.predicate-verdict').textContent=proof.countPass?'✅':'❌';
     countEl.querySelector('.predicate-desc').textContent=proof.countPass
-      ?`${proof.suspCount} suspicious events — below threshold of 4`
-      :`${proof.suspCount} suspicious events — exceeds threshold of 4`;
+      ?'Suspicious event count is within policy — no violation detected'
+      :'Suspicious event count exceeds policy threshold — violation flagged';
     countEl.querySelector('.predicate-time').textContent=`${proof.countMs}ms proof time`;
     countEl.classList.add(proof.countPass?'pass':'fail');
 
@@ -515,8 +515,8 @@ async function runVerification(){
     const sevEl=document.getElementById(`pred-sev-${name}`);
     sevEl.querySelector('.predicate-verdict').textContent=proof.sevPass?'✅':'❌';
     sevEl.querySelector('.predicate-desc').textContent=proof.sevPass
-      ?`Max severity ${proof.maxSev} — all entries below threshold of 5`
-      :`Max severity ${proof.maxSev} — entry at or above threshold of 5`;
+      ?'All log entries satisfy the severity policy — no violation detected'
+      :'At least one entry violates the severity policy — threshold exceeded';
     sevEl.querySelector('.predicate-time').textContent=`${proof.sevMs}ms proof time`;
     sevEl.classList.add(proof.sevPass?'pass':'fail');
 
