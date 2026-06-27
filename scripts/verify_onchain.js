@@ -1,10 +1,9 @@
 const hre = require("hardhat");
 const fs = require("fs");
 
-async function verifyBatch(logVerifier, logAnchor, batchName) {
-    const proof = JSON.parse(fs.readFileSync(`proof_${batchName}.json`));
-    const pub = JSON.parse(fs.readFileSync(`public_${batchName}.json`));
-    const merkleOutput = JSON.parse(fs.readFileSync(`merkle_output_${batchName}.json`));
+async function verifyProof(verifier, proofFile, publicFile) {
+    const proof = JSON.parse(fs.readFileSync(proofFile));
+    const pub = JSON.parse(fs.readFileSync(publicFile));
 
     const pA = [proof.pi_a[0], proof.pi_a[1]];
     const pB = [
@@ -14,22 +13,7 @@ async function verifyBatch(logVerifier, logAnchor, batchName) {
     const pC = [proof.pi_c[0], proof.pi_c[1]];
     const pubSignals = pub.map(s => BigInt(s));
 
-    // Verify proof on-chain
-    const isValid = await logVerifier.verifyProof(pA, pB, pC, pubSignals);
-
-    // Check root matches on-chain anchor
-    const [storedRoot] = await logAnchor.getRoot(batchName);
-    const proofRoot = BigInt(merkleOutput.root);
-    const rootMatches = storedRoot === proofRoot;
-
-    return {
-        batch: batchName,
-        proofValid: isValid,
-        rootMatches,
-        verified: isValid && rootMatches,
-        valid: pub[0],
-        threshold: pub[2]
-    };
+    return await verifier.verifyProof(pA, pB, pC, pubSignals);
 }
 
 async function main() {
@@ -41,33 +25,61 @@ async function main() {
     const LogVerifier = await hre.ethers.getContractFactory("Groth16Verifier");
     const logVerifier = LogVerifier.attach(addresses.logVerifier);
 
-    // Auto-detect all proof files
+    const SeverityVerifier = await hre.ethers.getContractFactory("SeverityBatchVerifier");
+    const severityVerifier = SeverityVerifier.attach(addresses.severityVerifier);
+
     const batches = fs.readdirSync(".")
         .filter(f => f.match(/^proof_batch_\d+\.json$/))
         .sort((a, b) => parseInt(a.match(/\d+/)[0]) - parseInt(b.match(/\d+/)[0]))
         .map(f => f.replace("proof_", "").replace(".json", ""));
 
-    console.log(`Found ${batches.length} proofs to verify\n`);
+    console.log(`Verifying ${batches.length} batches on-chain...\n`);
 
     const results = [];
 
     for (const batch of batches) {
         process.stdout.write(`Verifying ${batch}... `);
-        const result = await verifyBatch(logVerifier, logAnchor, batch);
-        results.push(result);
 
-        if (result.verified) {
-            console.log(`✅ VERIFIED (predicate ${result.valid === "1" ? "PASS" : "FAIL"}, threshold: ${result.threshold})`);
-        } else {
-            console.log(`❌ FAILED (proof: ${result.proofValid}, root: ${result.rootMatches})`);
-        }
+        // Verify count predicate
+        const countValid = await verifyProof(
+            logVerifier,
+            `proof_${batch}.json`,
+            `public_${batch}.json`
+        );
+
+        // Verify severity predicate
+        const sevValid = await verifyProof(
+            severityVerifier,
+            `proof_sev_${batch}.json`,
+            `public_sev_${batch}.json`
+        );
+
+        // Check root matches on-chain anchor
+        const [storedRoot] = await logAnchor.getRoot(batch);
+        const merkleOutput = JSON.parse(fs.readFileSync(`merkle_output_${batch}.json`));
+        const rootMatches = storedRoot === BigInt(merkleOutput.root);
+
+        const pub = JSON.parse(fs.readFileSync(`public_${batch}.json`));
+        const pubSev = JSON.parse(fs.readFileSync(`public_sev_${batch}.json`));
+
+        results.push({
+            batch,
+            rootMatches,
+            countValid,
+            sevValid,
+            count_predicate: pub[0] === "1" ? "PASS" : "FAIL",
+            sev_predicate: pubSev[0] === "1" ? "PASS" : "FAIL",
+        });
+
+        const status = countValid && sevValid && rootMatches ? "✅" : "❌";
+        console.log(`${status} count:${pub[0]==="1"?"PASS":"FAIL"} sev:${pubSev[0]==="1"?"PASS":"FAIL"} root:${rootMatches?"✓":"✗"}`);
     }
 
     console.log("\n=== SUMMARY ===");
     console.table(results);
 
     fs.writeFileSync("verification_results.json", JSON.stringify(results, null, 2));
-    console.log("\nResults saved to verification_results.json");
+    console.log("\nSaved to verification_results.json");
 }
 
 main().catch((error) => {

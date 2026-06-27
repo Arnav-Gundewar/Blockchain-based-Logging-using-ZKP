@@ -13,35 +13,64 @@ async function main() {
     for (const batch of batches) {
         console.log(`Processing ${batch}...`);
 
-        // Generate witness
-        const witnessStart = Date.now();
+        // --- LOG VERIFIER (count predicate) ---
+        const w1Start = Date.now();
         execSync(`node log_verifier_js/generate_witness.js log_verifier_js/log_verifier.wasm input_merkle_${batch}.json witness_${batch}.wtns`);
-        const witnessTime = Date.now() - witnessStart;
+        const witnessMs = Date.now() - w1Start;
 
-        // Generate proof
-        const proofStart = Date.now();
+        const p1Start = Date.now();
         execSync(`snarkjs groth16 prove log_verifier_hez_final.zkey witness_${batch}.wtns proof_${batch}.json public_${batch}.json`);
-        const proofTime = Date.now() - proofStart;
+        const proofMs = Date.now() - p1Start;
 
-        // Verify locally
-        const verifyStart = Date.now();
+        const v1Start = Date.now();
         execSync(`snarkjs groth16 verify verification_key_log_hez.json public_${batch}.json proof_${batch}.json`);
-        const verifyTime = Date.now() - verifyStart;
+        const verifyMs = Date.now() - v1Start;
 
-        // Read public output
         const pub = JSON.parse(fs.readFileSync(`public_${batch}.json`));
+
+        // --- SEVERITY BATCH CHECK ---
+        // Build severity input from merkle input
+        const merkleInput = JSON.parse(fs.readFileSync(`input_merkle_${batch}.json`));
+        const sevInput = {
+            severities: merkleInput.severities,
+            event_codes: merkleInput.event_codes,
+            ids: merkleInput.ids,
+            leaves: merkleInput.leaves,
+            root: merkleInput.root,
+            pathElements: merkleInput.pathElements,
+            pathIndices: merkleInput.pathIndices,
+            threshold: "5"
+        };
+        fs.writeFileSync(`input_severity_${batch}.json`, JSON.stringify(sevInput, null, 2));
+
+        const w2Start = Date.now();
+        execSync(`node severity_batch_check_js/generate_witness.js severity_batch_check_js/severity_batch_check.wasm input_severity_${batch}.json witness_sev_${batch}.wtns`);
+        const sevWitnessMs = Date.now() - w2Start;
+
+        const p2Start = Date.now();
+        execSync(`snarkjs groth16 prove severity_batch_hez_final.zkey witness_sev_${batch}.wtns proof_sev_${batch}.json public_sev_${batch}.json`);
+        const sevProofMs = Date.now() - p2Start;
+
+        const v2Start = Date.now();
+        execSync(`snarkjs groth16 verify verification_key_severity_hez.json public_sev_${batch}.json proof_sev_${batch}.json`);
+        const sevVerifyMs = Date.now() - v2Start;
+
+        const pubSev = JSON.parse(fs.readFileSync(`public_sev_${batch}.json`));
 
         results.push({
             batch,
-            valid: pub[0],
-            root: pub[1].substring(0, 20) + "...",
-            threshold: pub[2],
-            witnessMs: witnessTime,
-            proofMs: proofTime,
-            verifyMs: verifyTime
+            count_valid: pub[0],
+            sev_valid: pubSev[0],
+            witnessMs,
+            proofMs,
+            verifyMs,
+            sevWitnessMs,
+            sevProofMs,
+            sevVerifyMs
         });
 
-        console.log(`  Witness: ${witnessTime}ms | Proof: ${proofTime}ms | Verify: ${verifyTime}ms | Valid: ${pub[0]}`);
+        console.log(`  [Count]    Witness: ${witnessMs}ms | Proof: ${proofMs}ms | Verify: ${verifyMs}ms | Valid: ${pub[0]}`);
+        console.log(`  [Severity] Witness: ${sevWitnessMs}ms | Proof: ${sevProofMs}ms | Verify: ${sevVerifyMs}ms | Valid: ${pubSev[0]}`);
     }
 
     fs.writeFileSync("benchmark_results.json", JSON.stringify(results, null, 2));
@@ -49,16 +78,16 @@ async function main() {
     console.log("\n=== BENCHMARK SUMMARY ===");
     console.table(results.map(r => ({
         batch: r.batch,
-        valid: r.valid,
-        "witness(ms)": r.witnessMs,
-        "proof(ms)": r.proofMs,
-        "verify(ms)": r.verifyMs
+        count_valid: r.count_valid,
+        sev_valid: r.sev_valid,
+        "count_proof(ms)": r.proofMs,
+        "sev_proof(ms)": r.sevProofMs,
     })));
 
-    const avgProof = Math.round(results.reduce((a, r) => a + r.proofMs, 0) / results.length);
-    const avgVerify = Math.round(results.reduce((a, r) => a + r.verifyMs, 0) / results.length);
-    console.log(`\nAverage proof generation: ${avgProof}ms`);
-    console.log(`Average local verification: ${avgVerify}ms`);
+    const avgCount = Math.round(results.reduce((a, r) => a + r.proofMs, 0) / results.length);
+    const avgSev = Math.round(results.reduce((a, r) => a + r.sevProofMs, 0) / results.length);
+    console.log(`\nAverage count proof: ${avgCount}ms`);
+    console.log(`Average severity proof: ${avgSev}ms`);
     console.log("\nResults saved to benchmark_results.json");
 }
 

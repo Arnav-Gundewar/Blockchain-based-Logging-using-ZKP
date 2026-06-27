@@ -2,15 +2,15 @@ const hre = require("hardhat");
 const fs = require("fs");
 
 async function main() {
-    console.log("Deploying LogVerifier...");
-    const LogVerifier = await hre.ethers.getContractFactory("Groth16Verifier");
-    const logVerifier = await LogVerifier.deploy();
-    await logVerifier.waitForDeployment();
-    const verifierAddress = await logVerifier.getAddress();
-    console.log("LogVerifier deployed to:", verifierAddress);
+    console.log("Deploying SeverityBatchVerifier...");
+    const SeverityVerifier = await hre.ethers.getContractFactory("SeverityBatchVerifier");
+    const sv = await SeverityVerifier.deploy();
+    await sv.waitForDeployment();
+    const addr = await sv.getAddress();
+    console.log("SeverityBatchVerifier deployed to:", addr);
 
     const addresses = JSON.parse(fs.readFileSync("contract_addresses.json"));
-    addresses.logVerifier = verifierAddress;
+    addresses.severityVerifier = addr;
     fs.writeFileSync("contract_addresses.json", JSON.stringify(addresses, null, 2));
     console.log("Updated contract_addresses.json");
 }

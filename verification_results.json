@@ -1,34 +1,34 @@
 [
   {
     "batch": "batch_1",
-    "proofValid": true,
     "rootMatches": true,
-    "verified": true,
-    "valid": "1",
-    "threshold": "4"
+    "countValid": true,
+    "sevValid": true,
+    "count_predicate": "PASS",
+    "sev_predicate": "FAIL"
   },
   {
     "batch": "batch_2",
-    "proofValid": true,
     "rootMatches": true,
-    "verified": true,
-    "valid": "0",
-    "threshold": "4"
+    "countValid": true,
+    "sevValid": true,
+    "count_predicate": "FAIL",
+    "sev_predicate": "PASS"
   },
   {
     "batch": "batch_3",
-    "proofValid": true,
     "rootMatches": true,
-    "verified": true,
-    "valid": "1",
-    "threshold": "4"
+    "countValid": true,
+    "sevValid": true,
+    "count_predicate": "PASS",
+    "sev_predicate": "PASS"
   },
   {
     "batch": "batch_4",
-    "proofValid": true,
     "rootMatches": true,
-    "verified": true,
-    "valid": "0",
-    "threshold": "4"
+    "countValid": true,
+    "sevValid": true,
+    "count_predicate": "FAIL",
+    "sev_predicate": "FAIL"
   }
 ]

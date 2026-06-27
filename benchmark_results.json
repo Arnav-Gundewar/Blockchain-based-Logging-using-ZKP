@@ -1,38 +1,46 @@
 [
   {
     "batch": "batch_1",
-    "valid": "1",
-    "root": "14321190450841200513...",
-    "threshold": "4",
-    "witnessMs": 126,
-    "proofMs": 1245,
-    "verifyMs": 553
+    "count_valid": "1",
+    "sev_valid": "0",
+    "witnessMs": 136,
+    "proofMs": 1218,
+    "verifyMs": 630,
+    "sevWitnessMs": 113,
+    "sevProofMs": 1133,
+    "sevVerifyMs": 576
   },
   {
     "batch": "batch_2",
-    "valid": "0",
-    "root": "19312528703859334457...",
-    "threshold": "4",
-    "witnessMs": 112,
-    "proofMs": 1183,
-    "verifyMs": 551
+    "count_valid": "0",
+    "sev_valid": "1",
+    "witnessMs": 106,
+    "proofMs": 1106,
+    "verifyMs": 525,
+    "sevWitnessMs": 98,
+    "sevProofMs": 1116,
+    "sevVerifyMs": 569
   },
   {
     "batch": "batch_3",
-    "valid": "1",
-    "root": "31868253274708532645...",
-    "threshold": "4",
-    "witnessMs": 120,
-    "proofMs": 1140,
-    "verifyMs": 518
+    "count_valid": "1",
+    "sev_valid": "1",
+    "witnessMs": 106,
+    "proofMs": 1105,
+    "verifyMs": 516,
+    "sevWitnessMs": 96,
+    "sevProofMs": 1125,
+    "sevVerifyMs": 551
   },
   {
     "batch": "batch_4",
-    "valid": "0",
-    "root": "13643564843677648928...",
-    "threshold": "4",
-    "witnessMs": 159,
-    "proofMs": 1166,
-    "verifyMs": 536
+    "count_valid": "0",
+    "sev_valid": "0",
+    "witnessMs": 106,
+    "proofMs": 1095,
+    "verifyMs": 518,
+    "sevWitnessMs": 101,
+    "sevProofMs": 1076,
+    "sevVerifyMs": 554
   }
 ]
