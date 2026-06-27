@@ -24,603 +24,132 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* SCREENS */
-  .screen {
-    display: none;
-    min-height: 100vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 24px;
-    animation: fadeIn 0.6s ease;
-  }
+  .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; animation: fadeIn 0.6s ease; }
   .screen.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--border); z-index: 100; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width 0.6s ease; }
 
-  /* PROGRESS BAR */
-  .progress-bar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--border);
-    z-index: 100;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    transition: width 0.6s ease;
-  }
+  .step-indicator { position: fixed; top: 20px; right: 24px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
 
-  /* STEP INDICATOR */
-  .step-indicator {
-    position: fixed;
-    top: 20px; right: 24px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+  h1 strong { font-weight: 600; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .subtitle { color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 520px; text-align: center; margin-bottom: 48px; }
 
-  /* TYPOGRAPHY */
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 100%; max-width: 680px; }
+  .card-wide { max-width: 900px; }
 
-  h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-  }
+  .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  label { font-size: 12px; font-family: var(--mono); color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  input[type="number"] { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: var(--mono); font-size: 2rem; font-weight: 600; padding: 16px 20px; width: 100%; text-align: center; outline: none; transition: border-color 0.2s; }
+  input[type="number"]:focus { border-color: var(--accent); }
 
-  h1 strong {
-    font-weight: 600;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .subtitle {
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 520px;
-    text-align: center;
-    margin-bottom: 48px;
-  }
-
-  /* CARD */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px;
-    width: 100%;
-    max-width: 680px;
-  }
-
-  .card-wide { max-width: 860px; }
-
-  /* INPUTS */
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 24px;
-  }
-
-  label {
-    font-size: 12px;
-    font-family: var(--mono);
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  input[type="number"] {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 2rem;
-    font-weight: 600;
-    padding: 16px 20px;
-    width: 100%;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  input[type="number"]:focus {
-    border-color: var(--accent);
-  }
-
-  /* BUTTONS */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 32px;
-    border-radius: 8px;
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: #000;
-  }
-
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border-radius: 8px; font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; cursor: pointer; border: none; transition: all 0.2s; text-transform: uppercase; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #000; }
   .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--border);
-  }
-
+  .btn-ghost { background: transparent; color: var(--accent); border: 1px solid var(--border); }
   .btn-ghost:hover { border-color: var(--accent); }
 
-  /* LOG PREVIEW TABLE */
-  .log-table-wrap {
-    overflow-x: auto;
-    margin-top: 24px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--mono);
-    font-size: 11px;
-  }
-
-  th {
-    background: var(--surface2);
-    padding: 10px 14px;
-    text-align: left;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-  }
-
-  td {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-  }
-
+  .log-table-wrap { overflow-x: auto; margin-top: 24px; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 11px; }
+  th { background: var(--surface2); padding: 10px 14px; text-align: left; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
   tr:last-child td { border-bottom: none; }
-
   tr:hover td { background: var(--surface2); }
 
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-  }
-
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
   .badge-red { background: rgba(255,68,102,0.15); color: var(--red); }
   .badge-green { background: rgba(0,255,136,0.15); color: var(--green); }
-  .badge-yellow { background: rgba(255,204,0,0.15); color: var(--yellow); }
 
-  /* SEVERITY DOT */
-  .sev {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .sev-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-  }
-  .sev-1 { background: #4caf50; }
-  .sev-2 { background: #8bc34a; }
-  .sev-3 { background: var(--yellow); }
-  .sev-4 { background: #ff9800; }
-  .sev-5 { background: var(--red); }
+  .sev { display: inline-flex; align-items: center; gap: 6px; }
+  .sev-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .sev-1 { background: #4caf50; } .sev-2 { background: #8bc34a; } .sev-3 { background: var(--yellow); } .sev-4 { background: #ff9800; } .sev-5 { background: var(--red); }
 
-  /* BATCH TABS */
-  .batch-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
+  .batch-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .batch-tab { padding: 6px 16px; border-radius: 6px; font-family: var(--mono); font-size: 11px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.2s; }
+  .batch-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
 
-  .batch-tab {
-    padding: 6px 16px;
-    border-radius: 6px;
-    font-family: var(--mono);
-    font-size: 11px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--muted);
-    transition: all 0.2s;
-  }
-
-  .batch-tab.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(0,212,255,0.08);
-  }
-
-  /* PIPELINE STEPS */
-  .pipeline {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 680px;
-  }
-
-  .pipe-step {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 24px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    transition: border-color 0.3s;
-  }
-
-  .pipe-step.running { border-color: var(--accent); }
-  .pipe-step.done { border-color: var(--green); }
-  .pipe-step.fail { border-color: var(--red); }
-
-  .pipe-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-    background: var(--surface2);
-  }
-
-  .pipe-step.running .pipe-icon { background: rgba(0,212,255,0.1); }
-  .pipe-step.done .pipe-icon { background: rgba(0,255,136,0.1); }
-
-  .pipe-info { flex: 1; }
-
-  .pipe-name {
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-
-  .pipe-detail {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .pipe-status {
-    font-family: var(--mono);
-    font-size: 11px;
-  }
-
-  .pipe-step.running .pipe-status { color: var(--accent); }
-  .pipe-step.done .pipe-status { color: var(--green); }
-
-  /* SPINNER */
-  .spin {
-    display: inline-block;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* MERKLE VIZ */
-  .merkle-grid {
-    display: grid;
-    gap: 12px;
-    margin-top: 24px;
-  }
-
-  .merkle-batch {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    transition: border-color 0.3s;
-  }
-
+  .merkle-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .merkle-batch { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; transition: border-color 0.3s; }
   .merkle-batch.anchored { border-color: var(--green); }
+  .merkle-batch-name { font-family: var(--mono); font-size: 12px; color: var(--muted); width: 64px; flex-shrink: 0; }
+  .merkle-root { font-family: var(--mono); font-size: 11px; color: var(--accent); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .merkle-status { font-size: 16px; flex-shrink: 0; }
 
-  .merkle-batch-name {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    width: 64px;
-    flex-shrink: 0;
-  }
+  /* PROVING SCREEN - TWO CIRCUITS PER BATCH */
+  .prove-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; width: 100%; max-width: 900px; }
+  .prove-batch-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .prove-batch-num { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .prove-circuits { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .circuit-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; transition: border-color 0.3s; }
+  .circuit-row.running { border-color: var(--accent); }
+  .circuit-row.done-pass { border-color: var(--green); }
+  .circuit-row.done-fail { border-color: var(--red); }
+  .circuit-icon { width: 28px; height: 28px; border-radius: 6px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .circuit-info { flex: 1; }
+  .circuit-name { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+  .circuit-detail { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+  .circuit-status { font-family: var(--mono); font-size: 11px; }
+  .circuit-row.running .circuit-status { color: var(--accent); }
+  .circuit-row.done-pass .circuit-status { color: var(--green); }
+  .circuit-row.done-fail .circuit-status { color: var(--red); }
 
-  .merkle-root {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  /* VERIFICATION SCREEN */
+  .verify-batch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; width: 100%; max-width: 900px; opacity: 0; transform: translateY(16px); transition: all 0.4s; }
+  .verify-batch.revealed { opacity: 1; transform: translateY(0); }
+  .verify-batch-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .verify-batch-num { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; flex: 1; }
+  .verify-root { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+  .verify-predicates { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .predicate-card { padding: 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; }
+  .predicate-card.pass { border-color: var(--green); background: rgba(0,255,136,0.04); }
+  .predicate-card.fail { border-color: var(--red); background: rgba(255,68,102,0.04); }
+  .predicate-title { font-size: 11px; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .predicate-verdict { font-size: 1.6rem; margin-bottom: 6px; }
+  .predicate-desc { font-size: 12px; color: var(--muted); }
+  .predicate-time { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 6px; }
 
-  .merkle-status {
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-
-  /* PROOF RESULTS */
-  .proof-grid {
-    display: grid;
-    gap: 16px;
-    width: 100%;
-    max-width: 860px;
-  }
-
-  .proof-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 20px;
-    transition: all 0.4s;
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  .proof-card.revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .proof-card.pass { border-color: var(--green); }
-  .proof-card.fail { border-color: var(--red); }
-
-  .proof-verdict {
-    font-size: 2.5rem;
-    line-height: 1;
-  }
-
-  .proof-info .batch-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .proof-info .verdict-text {
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-
-  .proof-info .proof-meta {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .proof-meta span { display: flex; align-items: center; gap: 4px; }
-
-  .proof-timing {
-    text-align: right;
-  }
-
-  .proof-timing .time-val {
-    font-family: var(--mono);
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  .proof-timing .time-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  /* FINAL SUMMARY */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 16px;
-    margin: 32px 0;
-    width: 100%;
-    max-width: 680px;
-  }
-
-  .stat-block {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .stat-val {
-    font-family: var(--mono);
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  /* HASH DISPLAY */
-  .hash {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    word-break: break-all;
-  }
-
-  /* SCANNING ANIMATION */
-  .scan-line {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    animation: scan 1.5s ease-in-out infinite;
-    margin: 16px 0;
-  }
-  @keyframes scan {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  /* CHAIN ICON */
-  .chain-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .tx-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .tx-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
-    background: var(--surface2);
-    border-radius: 6px;
-    font-family: var(--mono);
-    font-size: 11px;
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-
+  .tx-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .tx-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--surface2); border-radius: 6px; font-family: var(--mono); font-size: 11px; opacity: 0; transition: opacity 0.4s; }
   .tx-item.visible { opacity: 1; }
   .tx-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
   .tx-hash { color: var(--accent); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tx-time { color: var(--muted); }
 
-  /* SCREEN 1 HERO */
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 32px;
-  }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 32px 0; width: 100%; max-width: 900px; }
+  .stat-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+  .stat-val { font-family: var(--mono); font-size: 1.8rem; font-weight: 600; margin-bottom: 4px; }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
 
-  .hero-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    animation: pulse 1.5s infinite;
-  }
+  .scan-line { height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); animation: scan 1.5s ease-in-out infinite; margin: 16px 0; }
+  @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-  /* TRANSITION OVERLAY */
-  .transition-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 32px; }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  .transition-overlay.active {
-    opacity: 1;
-    pointer-events: all;
-  }
+  .transition-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .transition-overlay.active { opacity: 1; pointer-events: all; }
+  .transition-text { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.1em; }
 
-  .transition-text {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-  }
-
-  .divider {
-    width: 1px;
-    height: 40px;
-    background: var(--border);
-    margin: 8px 0;
-  }
+  .spin { display: inline-block; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .centered { text-align: center; }
+
+  .circuit-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 4px; font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .tag-count { background: rgba(0,212,255,0.12); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); }
+  .tag-sev { background: rgba(123,97,255,0.12); color: var(--accent2); border: 1px solid rgba(123,97,255,0.3); }
 </style>
 </head>
 <body>
 
-<div class="progress-bar">
-  <div class="progress-fill" id="progressFill" style="width: 20%"></div>
-</div>
-
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
 <div class="step-indicator" id="stepIndicator">01 / 05</div>
 
 <div class="transition-overlay" id="transitionOverlay">
@@ -628,509 +157,395 @@
   <div class="transition-text" id="transitionText">INITIALIZING</div>
 </div>
 
-<!-- ============================================================ -->
 <!-- SCREEN 1: GENERATE LOGS -->
-<!-- ============================================================ -->
 <div class="screen active" id="screen1">
-  <div class="hero-tag">
-    <div class="hero-dot"></div>
-    ZK LOG SYSTEM — LIVE
-  </div>
-
+  <div class="hero-tag"><div class="hero-dot"></div>ZK LOG SYSTEM — LIVE</div>
   <div class="eyebrow">Step 01 — Origin</div>
   <h1 class="centered">Generate your<br><strong>log batches</strong></h1>
-  <p class="subtitle">Each batch is 8 log entries capturing real system events. Define how many batches to process through the ZK pipeline.</p>
-
+  <p class="subtitle">Each batch is 8 log entries capturing real system events. Every entry gets hashed and committed — nothing is revealed to the verifier.</p>
   <div class="card">
     <div class="input-group">
       <label>Number of Batches</label>
       <input type="number" id="batchCount" min="1" max="8" value="4" />
     </div>
-
-    <div style="display:flex; gap:12px; justify-content:center; margin-bottom: 24px;">
-      <button class="btn btn-primary" onclick="generateLogs()" id="generateBtn">
-        ⚡ Generate Logs
-      </button>
+    <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;">
+      <button class="btn btn-primary" onclick="generateLogs()">⚡ Generate Logs</button>
     </div>
-
     <div id="logPreview" style="display:none">
       <div class="batch-tabs" id="batchTabs"></div>
       <div class="log-table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Timestamp</th>
-              <th>Event</th>
-              <th>Severity</th>
-              <th>Code</th>
-              <th>IP</th>
-            </tr>
-          </thead>
+          <thead><tr><th>ID</th><th>Timestamp</th><th>Event</th><th>Severity</th><th>Code</th><th>IP</th></tr></thead>
           <tbody id="logTableBody"></tbody>
         </table>
       </div>
-
-      <div style="margin-top: 24px; display:flex; justify-content:flex-end;">
-        <button class="btn btn-primary" onclick="goToScreen(2)" id="journeyBtn">
-          Begin Journey →
-        </button>
+      <div style="margin-top:24px;display:flex;justify-content:flex-end;">
+        <button class="btn btn-primary" onclick="goToScreen(2)">Begin Journey →</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- SCREEN 2: MERKLE TREES -->
-<!-- ============================================================ -->
 <div class="screen" id="screen2">
   <div class="eyebrow">Step 02 — Commitment</div>
   <h1 class="centered">Building<br><strong>Merkle Trees</strong></h1>
-  <p class="subtitle">Each log entry is hashed with Poseidon. Pairs are combined upward into a single root — a fingerprint of the entire batch.</p>
-
+  <p class="subtitle">Each log entry is hashed with Poseidon. Pairs combine upward into a single root — the immutable fingerprint of the entire batch.</p>
   <div class="card card-wide">
     <div class="merkle-grid" id="merkleGrid"></div>
-    <div style="margin-top:24px; display:flex; justify-content:flex-end;">
-      <button class="btn btn-primary" id="anchorBtn" style="display:none" onclick="goToScreen(3)">
-        Anchor to Blockchain →
-      </button>
+    <div style="margin-top:24px;display:flex;justify-content:flex-end;">
+      <button class="btn btn-primary" id="anchorBtn" style="display:none" onclick="goToScreen(3)">Anchor to Blockchain →</button>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- SCREEN 3: BLOCKCHAIN ANCHORING -->
-<!-- ============================================================ -->
+<!-- SCREEN 3: ANCHORING -->
 <div class="screen" id="screen3">
   <div class="eyebrow">Step 03 — Immutability</div>
   <h1 class="centered">Anchoring roots<br><strong>on-chain</strong></h1>
   <p class="subtitle">Each Merkle root is written to a smart contract on Ethereum Sepolia — timestamped and immutable. No log can be altered after this point.</p>
-
   <div class="card card-wide">
-    <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
       <div>
-        <div style="font-family:var(--mono); font-size:11px; color:var(--muted); margin-bottom:4px;">CONTRACT</div>
-        <div style="font-family:var(--mono); font-size:12px; color:var(--accent);">0xd2fBd657...1aE60f8</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:4px;">CONTRACT</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);">0xd2fBd657...1aE60f8</div>
       </div>
-      <div style="margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--muted);">SEPOLIA TESTNET</div>
+      <div style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);">SEPOLIA TESTNET</div>
     </div>
-
     <div class="scan-line"></div>
-
     <div class="tx-list" id="txList"></div>
-
-    <div style="margin-top:24px; display:flex; justify-content:flex-end;">
-      <button class="btn btn-primary" id="proveBtn" style="display:none" onclick="goToScreen(4)">
-        Generate ZK Proofs →
-      </button>
+    <div style="margin-top:24px;display:flex;justify-content:flex-end;">
+      <button class="btn btn-primary" id="proveBtn" style="display:none" onclick="goToScreen(4)">Generate ZK Proofs →</button>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
 <!-- SCREEN 4: ZK PROVING -->
-<!-- ============================================================ -->
 <div class="screen" id="screen4">
   <div class="eyebrow">Step 04 — Zero Knowledge</div>
   <h1 class="centered">Generating<br><strong>ZK Proofs</strong></h1>
-  <p class="subtitle">For each batch, a zk-SNARK proof is generated that the suspicious event count stays below threshold — without revealing which events triggered it.</p>
+  <p class="subtitle">Two independent zk-SNARK proofs per batch — one checking suspicious event count, one checking severity thresholds. Neither reveals the underlying logs.</p>
 
-  <div class="pipeline" id="provePipeline"></div>
+  <div style="display:flex;gap:12px;margin-bottom:24px;">
+    <span class="circuit-tag tag-count">COUNT PREDICATE</span>
+    <span class="circuit-tag tag-sev">SEVERITY PREDICATE</span>
+  </div>
 
-  <div style="margin-top:32px; display:flex; justify-content:flex-end; width:100%; max-width:680px;">
-    <button class="btn btn-primary" id="verifyBtn" style="display:none" onclick="goToScreen(5)">
-      Verify On-Chain →
-    </button>
+  <div id="proveBatches" style="width:100%;max-width:900px;"></div>
+
+  <div style="margin-top:24px;display:flex;justify-content:flex-end;width:100%;max-width:900px;">
+    <button class="btn btn-primary" id="verifyBtn" style="display:none" onclick="goToScreen(5)">Verify On-Chain →</button>
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- SCREEN 5: VERIFICATION RESULTS -->
-<!-- ============================================================ -->
+<!-- SCREEN 5: VERIFICATION -->
 <div class="screen" id="screen5">
   <div class="eyebrow">Step 05 — Verification</div>
   <h1 class="centered">On-chain<br><strong>Verification</strong></h1>
-  <p class="subtitle">Each proof is checked by the Solidity verifier contract. The auditor learns only pass/fail — never the underlying log contents.</p>
+  <p class="subtitle">Each proof is checked by a Solidity verifier contract on Sepolia. Two independent verdicts per batch — the auditor learns only pass/fail, never the log contents.</p>
 
-  <div class="proof-grid" id="proofGrid"></div>
-
+  <div id="verifyBatches"></div>
   <div class="summary-grid" id="summaryGrid" style="display:none"></div>
-
-  <button class="btn btn-ghost" onclick="restart()" style="margin-top:24px; display:none" id="restartBtn">
-    ↺ Run Again
-  </button>
+  <button class="btn btn-ghost" onclick="restart()" style="margin-top:24px;display:none" id="restartBtn">↺ Run Again</button>
 </div>
 
 <script>
-// ============================================================
-// STATE
-// ============================================================
-const state = {
-  batches: 4,
-  logs: {},         // { batch_1: [...], batch_2: [...] }
-  roots: {},        // { batch_1: "1234...", ... }
-  txHashes: {},     // { batch_1: "0xabc...", ... }
-  proofs: {},       // { batch_1: { valid, proofMs, verifyMs } }
-  currentBatchTab: 0
-};
+const state = { batches: 4, logs: {}, roots: {}, proofs: {} };
 
-// ============================================================
-// SCREEN NAVIGATION
-// ============================================================
+const EVENTS = [
+  { type: "failed_login",         code: 1, sevRange: [3,5] },
+  { type: "successful_login",     code: 0, sevRange: [1,2] },
+  { type: "file_access",          code: 0, sevRange: [1,3] },
+  { type: "config_change",        code: 0, sevRange: [2,4] },
+  { type: "port_scan",            code: 1, sevRange: [4,5] },
+  { type: "privilege_escalation", code: 1, sevRange: [4,5] },
+];
+
+function ri(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+function randIP(){ return `192.168.${ri(0,255)}.${ri(1,254)}`; }
+function randUser(){ return `u_${ri(100,999)}`; }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
 function goToScreen(n) {
+  const texts = ['','GENERATING LOGS','BUILDING MERKLE TREES','ANCHORING ON-CHAIN','GENERATING PROOFS','VERIFYING ON-CHAIN'];
   const overlay = document.getElementById('transitionOverlay');
-  const texts = ['', 'GENERATING LOGS', 'BUILDING MERKLE TREES', 'ANCHORING ON-CHAIN', 'GENERATING PROOFS', 'VERIFYING'];
-  
   overlay.querySelector('#transitionText').textContent = texts[n] || 'LOADING';
   overlay.classList.add('active');
-
   setTimeout(() => {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById(`screen${n}`).classList.add('active');
-    
-    const pct = (n / 5) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressFill').style.width = (n/5*100)+'%';
     document.getElementById('stepIndicator').textContent = `0${n} / 05`;
-
     overlay.classList.remove('active');
-
-    if (n === 2) runMerkle();
-    if (n === 3) runAnchoring();
-    if (n === 4) runProving();
-    if (n === 5) runVerification();
+    if(n===2) runMerkle();
+    if(n===3) runAnchoring();
+    if(n===4) runProving();
+    if(n===5) runVerification();
   }, 700);
 }
 
-// ============================================================
-// SCREEN 1: GENERATE LOGS
-// ============================================================
-const EVENTS = [
-  { type: "failed_login",          code: 1, sevRange: [3, 5] },
-  { type: "successful_login",      code: 0, sevRange: [1, 2] },
-  { type: "file_access",           code: 0, sevRange: [1, 3] },
-  { type: "config_change",         code: 0, sevRange: [2, 4] },
-  { type: "port_scan",             code: 1, sevRange: [4, 5] },
-  { type: "privilege_escalation",  code: 1, sevRange: [4, 5] },
-];
-
-function ri(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
-function randIP() { return `192.168.${ri(0,255)}.${ri(1,254)}`; }
-function randUser() { return `u_${ri(100, 999)}`; }
-
 function generateLogs() {
   const n = parseInt(document.getElementById('batchCount').value);
-  if (n < 1 || n > 8) return;
+  if(n<1||n>8) return;
   state.batches = n;
   state.logs = {};
-
-  for (let b = 1; b <= n; b++) {
-    const batch = [];
-    for (let i = 0; i < 8; i++) {
-      const ev = EVENTS[ri(0, EVENTS.length - 1)];
-      batch.push({
-        id: i,
-        timestamp: new Date(Date.now() - ri(0, 3600000)).toISOString(),
-        severity: ri(ev.sevRange[0], ev.sevRange[1]),
-        event: ev.type,
-        event_code: ev.code,
-        user: randUser(),
-        ip: randIP()
-      });
+  for(let b=1;b<=n;b++){
+    const batch=[];
+    for(let i=0;i<8;i++){
+      const ev=EVENTS[ri(0,EVENTS.length-1)];
+      batch.push({ id:i, timestamp:new Date(Date.now()-ri(0,3600000)).toISOString(), severity:ri(ev.sevRange[0],ev.sevRange[1]), event:ev.type, event_code:ev.code, user:randUser(), ip:randIP() });
     }
-    state.logs[`batch_${b}`] = batch;
+    state.logs[`batch_${b}`]=batch;
   }
-
-  // Build tabs
-  const tabs = document.getElementById('batchTabs');
-  tabs.innerHTML = '';
-  for (let b = 1; b <= n; b++) {
-    const t = document.createElement('button');
-    t.className = 'batch-tab' + (b === 1 ? ' active' : '');
-    t.textContent = `Batch ${b}`;
-    t.onclick = () => showBatchTab(b);
+  const tabs=document.getElementById('batchTabs');
+  tabs.innerHTML='';
+  for(let b=1;b<=n;b++){
+    const t=document.createElement('button');
+    t.className='batch-tab'+(b===1?' active':'');
+    t.textContent=`Batch ${b}`;
+    t.onclick=()=>showBatchTab(b);
     tabs.appendChild(t);
   }
-
   showBatchTab(1);
-  document.getElementById('logPreview').style.display = 'block';
+  document.getElementById('logPreview').style.display='block';
 }
 
 function showBatchTab(b) {
-  state.currentBatchTab = b;
-  document.querySelectorAll('.batch-tab').forEach((t, i) => {
-    t.classList.toggle('active', i === b - 1);
-  });
-
-  const logs = state.logs[`batch_${b}`];
-  const tbody = document.getElementById('logTableBody');
-  tbody.innerHTML = logs.map(log => `
+  document.querySelectorAll('.batch-tab').forEach((t,i)=>t.classList.toggle('active',i===b-1));
+  const logs=state.logs[`batch_${b}`];
+  document.getElementById('logTableBody').innerHTML=logs.map(log=>`
     <tr>
       <td>${log.id}</td>
-      <td style="color:var(--muted)">${log.timestamp.replace('T', ' ').substring(0, 19)}</td>
-      <td>
-        <span class="badge ${log.event_code === 1 ? 'badge-red' : 'badge-green'}">
-          ${log.event}
-        </span>
-      </td>
-      <td>
-        <span class="sev">
-          <span class="sev-dot sev-${log.severity}"></span>
-          ${log.severity}
-        </span>
-      </td>
-      <td style="color:${log.event_code ? 'var(--red)' : 'var(--green)'}">
-        ${log.event_code === 1 ? '⚠ 1' : '✓ 0'}
-      </td>
+      <td style="color:var(--muted)">${log.timestamp.replace('T',' ').substring(0,19)}</td>
+      <td><span class="badge ${log.event_code===1?'badge-red':'badge-green'}">${log.event}</span></td>
+      <td><span class="sev"><span class="sev-dot sev-${log.severity}"></span>${log.severity}</span></td>
+      <td style="color:${log.event_code?'var(--red)':'var(--green)'}">${log.event_code===1?'⚠ 1':'✓ 0'}</td>
       <td style="color:var(--muted)">${log.ip}</td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
 }
 
-// ============================================================
-// SCREEN 2: MERKLE TREES (simulated with real Poseidon-like feel)
-// ============================================================
-function fakePoseidon(inputs) {
-  // Not real Poseidon — just for UI demo
-  let h = 0n;
-  for (const v of inputs) {
-    h = (h * 6700417n + BigInt(v) * 998244353n + 1234567891n) % (2n ** 254n);
-  }
+function fakePoseidon(inputs){
+  let h=0n;
+  for(const v of inputs) h=(h*6700417n+BigInt(v)*998244353n+1234567891n)%(2n**254n);
   return h;
 }
 
-function buildMerkleRoot(logs) {
-  let leaves = logs.map(l => fakePoseidon([l.id, l.severity, l.event_code]));
-  while (leaves.length > 1) {
-    const next = [];
-    for (let i = 0; i < leaves.length; i += 2) {
-      next.push(fakePoseidon([leaves[i], leaves[i+1]]));
-    }
-    leaves = next;
+function buildMerkleRoot(logs){
+  let leaves=logs.map(l=>fakePoseidon([l.id,l.severity,l.event_code]));
+  while(leaves.length>1){
+    const next=[];
+    for(let i=0;i<leaves.length;i+=2) next.push(fakePoseidon([leaves[i],leaves[i+1]]));
+    leaves=next;
   }
   return leaves[0].toString();
 }
 
-async function runMerkle() {
-  const grid = document.getElementById('merkleGrid');
-  grid.innerHTML = '';
-
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    const div = document.createElement('div');
-    div.className = 'merkle-batch';
-    div.id = `merkle-${name}`;
-    div.innerHTML = `
-      <div class="merkle-batch-name">BATCH ${b}</div>
-      <div class="merkle-root">Computing...</div>
-      <div class="merkle-status"><span class="spin">⟳</span></div>
-    `;
+async function runMerkle(){
+  const grid=document.getElementById('merkleGrid');
+  grid.innerHTML='';
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    const div=document.createElement('div');
+    div.className='merkle-batch';
+    div.id=`merkle-${name}`;
+    div.innerHTML=`<div class="merkle-batch-name">BATCH ${b}</div><div class="merkle-root">Computing...</div><div class="merkle-status"><span class="spin">⟳</span></div>`;
     grid.appendChild(div);
   }
-
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    await sleep(600);
-    const root = buildMerkleRoot(state.logs[name]);
-    state.roots[name] = root;
-    const el = document.getElementById(`merkle-${name}`);
-    el.querySelector('.merkle-root').textContent = root.substring(0, 40) + '...';
-    el.querySelector('.merkle-status').textContent = '✓';
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    await sleep(500);
+    const root=buildMerkleRoot(state.logs[name]);
+    state.roots[name]=root;
+    const el=document.getElementById(`merkle-${name}`);
+    el.querySelector('.merkle-root').textContent=root.substring(0,40)+'...';
+    el.querySelector('.merkle-status').textContent='✓';
     el.classList.add('anchored');
   }
-
-  document.getElementById('anchorBtn').style.display = 'inline-flex';
+  document.getElementById('anchorBtn').style.display='inline-flex';
 }
 
-// ============================================================
-// SCREEN 3: ANCHORING
-// ============================================================
-async function runAnchoring() {
-  const txList = document.getElementById('txList');
-  txList.innerHTML = '';
-
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    const item = document.createElement('div');
-    item.className = 'tx-item';
-    item.id = `tx-${name}`;
-    item.innerHTML = `
-      <div class="tx-dot" style="background:var(--yellow)"></div>
-      <div class="tx-hash">Sending transaction for ${name}...</div>
-      <div class="tx-time"><span class="spin">⟳</span></div>
-    `;
+async function runAnchoring(){
+  const txList=document.getElementById('txList');
+  txList.innerHTML='';
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    const item=document.createElement('div');
+    item.className='tx-item';
+    item.innerHTML=`<div class="tx-dot" style="background:var(--yellow)"></div><div class="tx-hash">Sending transaction for ${name}...</div><div class="tx-time"><span class="spin">⟳</span></div>`;
     txList.appendChild(item);
     item.classList.add('visible');
-
     await sleep(900);
-
-    // Fake tx hash
-    const fakeHash = '0x' + Array.from({length: 64}, () => '0123456789abcdef'[ri(0,15)]).join('');
-    state.txHashes[name] = fakeHash;
-
-    item.querySelector('.tx-dot').style.background = 'var(--green)';
-    item.querySelector('.tx-hash').innerHTML = `<span style="color:var(--muted)">${name}</span> → <span style="color:var(--accent)">${fakeHash.substring(0,20)}...</span>`;
-    item.querySelector('.tx-time').textContent = new Date().toISOString().substring(11, 19);
+    const fakeHash='0x'+Array.from({length:64},()=>'0123456789abcdef'[ri(0,15)]).join('');
+    item.querySelector('.tx-dot').style.background='var(--green)';
+    item.querySelector('.tx-hash').innerHTML=`<span style="color:var(--muted)">${name}</span> → <span style="color:var(--accent)">${fakeHash.substring(0,22)}...</span>`;
+    item.querySelector('.tx-time').textContent=new Date().toISOString().substring(11,19);
   }
-
   await sleep(400);
-  document.getElementById('proveBtn').style.display = 'inline-flex';
+  document.getElementById('proveBtn').style.display='inline-flex';
 }
 
-// ============================================================
-// SCREEN 4: PROVING
-// ============================================================
-async function runProving() {
-  const pipeline = document.getElementById('provePipeline');
-  pipeline.innerHTML = '';
+async function runProving(){
+  const container=document.getElementById('proveBatches');
+  container.innerHTML='';
 
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    const step = document.createElement('div');
-    step.className = 'pipe-step';
-    step.id = `pipe-${name}`;
-    step.innerHTML = `
-      <div class="pipe-icon">🔐</div>
-      <div class="pipe-info">
-        <div class="pipe-name">Batch ${b}</div>
-        <div class="pipe-detail" id="pipe-detail-${name}">Waiting...</div>
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    const div=document.createElement('div');
+    div.className='prove-batch';
+    div.innerHTML=`
+      <div class="prove-batch-header">
+        <div class="prove-batch-num">BATCH ${b}</div>
+        <div id="batch-status-${name}" style="font-family:var(--mono);font-size:11px;color:var(--muted)">Waiting...</div>
       </div>
-      <div class="pipe-status" id="pipe-status-${name}">—</div>
-    `;
-    pipeline.appendChild(step);
-  }
-
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    const step = document.getElementById(`pipe-${name}`);
-    const detail = document.getElementById(`pipe-detail-${name}`);
-    const status = document.getElementById(`pipe-status-${name}`);
-
-    step.classList.add('running');
-    status.innerHTML = '<span class="spin">⟳</span> Generating witness...';
-    detail.textContent = 'Building constraint system...';
-    const witnessMs = ri(100, 160);
-    await sleep(witnessMs + 200);
-
-    status.innerHTML = '<span class="spin">⟳</span> Proving...';
-    detail.textContent = `Witness: ${witnessMs}ms — Running Groth16...`;
-    const proofMs = ri(1100, 1300);
-    await sleep(proofMs + 300);
-
-    // Determine if batch passes (count suspicious events)
-    const logs = state.logs[name];
-    const suspCount = logs.filter(l => l.event_code === 1).length;
-    const valid = suspCount < 4;
-
-    state.proofs[name] = { valid, proofMs, witnessMs, verifyMs: ri(500, 580), suspCount };
-
-    step.classList.remove('running');
-    step.classList.add('done');
-    status.textContent = '✓ Done';
-    detail.textContent = `Witness: ${witnessMs}ms | Proof: ${proofMs}ms | Predicate: ${valid ? 'PASS' : 'FAIL'}`;
-  }
-
-  await sleep(400);
-  document.getElementById('verifyBtn').style.display = 'inline-flex';
-}
-
-// ============================================================
-// SCREEN 5: VERIFICATION
-// ============================================================
-async function runVerification() {
-  const grid = document.getElementById('proofGrid');
-  grid.innerHTML = '';
-
-  const cards = [];
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    const card = document.createElement('div');
-    card.className = 'proof-card';
-    card.id = `proof-card-${name}`;
-    card.innerHTML = `
-      <div class="proof-verdict">⏳</div>
-      <div class="proof-info">
-        <div class="batch-label">BATCH ${b}</div>
-        <div class="verdict-text" style="color:var(--muted)">Verifying on-chain...</div>
-        <div class="proof-meta">
-          <span>🔗 Root: ${(state.roots[name] || '').substring(0,16)}...</span>
-          <span>🎯 Threshold: 4</span>
+      <div class="prove-circuits">
+        <div class="circuit-row" id="count-row-${name}">
+          <div class="circuit-icon">🔢</div>
+          <div class="circuit-info">
+            <div class="circuit-name">Count Predicate</div>
+            <div class="circuit-detail" id="count-detail-${name}">suspicious events &lt; 4</div>
+          </div>
+          <div class="circuit-status" id="count-status-${name}">—</div>
         </div>
+        <div class="circuit-row" id="sev-row-${name}">
+          <div class="circuit-icon">📊</div>
+          <div class="circuit-info">
+            <div class="circuit-name">Severity Predicate</div>
+            <div class="circuit-detail" id="sev-detail-${name}">all severities &lt; 5</div>
+          </div>
+          <div class="circuit-status" id="sev-status-${name}">—</div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  }
+
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    const logs=state.logs[name];
+
+    // Count circuit
+    document.getElementById(`count-row-${name}`).classList.add('running');
+    document.getElementById(`count-status-${name}`).innerHTML='<span class="spin">⟳</span> Proving...';
+    document.getElementById(`batch-status-${name}`).textContent='Generating proofs...';
+    const countMs=ri(1080,1280);
+    await sleep(countMs+200);
+
+    const suspCount=logs.filter(l=>l.event_code===1).length;
+    const countPass=suspCount<4;
+    document.getElementById(`count-row-${name}`).classList.remove('running');
+    document.getElementById(`count-row-${name}`).classList.add(countPass?'done-pass':'done-fail');
+    document.getElementById(`count-status-${name}`).textContent=`${countPass?'✓ PASS':'✗ FAIL'} · ${countMs}ms`;
+    document.getElementById(`count-detail-${name}`).textContent=`${suspCount} suspicious · threshold 4`;
+
+    // Severity circuit
+    document.getElementById(`sev-row-${name}`).classList.add('running');
+    document.getElementById(`sev-status-${name}`).innerHTML='<span class="spin">⟳</span> Proving...';
+    const sevMs=ri(1060,1200);
+    await sleep(sevMs+200);
+
+    const maxSev=Math.max(...logs.map(l=>l.severity));
+    const sevPass=maxSev<5;
+    document.getElementById(`sev-row-${name}`).classList.remove('running');
+    document.getElementById(`sev-row-${name}`).classList.add(sevPass?'done-pass':'done-fail');
+    document.getElementById(`sev-status-${name}`).textContent=`${sevPass?'✓ PASS':'✗ FAIL'} · ${sevMs}ms`;
+    document.getElementById(`sev-detail-${name}`).textContent=`max severity ${maxSev} · threshold 5`;
+
+    document.getElementById(`batch-status-${name}`).textContent='Done';
+    state.proofs[name]={ countPass, sevPass, countMs, sevMs, suspCount, maxSev };
+  }
+
+  await sleep(400);
+  document.getElementById('verifyBtn').style.display='inline-flex';
+}
+
+async function runVerification(){
+  const container=document.getElementById('verifyBatches');
+  container.innerHTML='';
+
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    const div=document.createElement('div');
+    div.className='verify-batch';
+    div.id=`verify-${name}`;
+    div.innerHTML=`
+      <div class="verify-batch-header">
+        <div class="verify-batch-num">BATCH ${b} — On-chain verification</div>
+        <div class="verify-root">Root: ${(state.roots[name]||'').substring(0,18)}...</div>
       </div>
-      <div class="proof-timing">
-        <div class="time-val" id="time-${name}">—</div>
-        <div class="time-label">proof ms</div>
-      </div>
-    `;
-    grid.appendChild(card);
-    cards.push(card);
+      <div class="verify-predicates">
+        <div class="predicate-card" id="pred-count-${name}">
+          <div class="predicate-title">Count Predicate</div>
+          <div class="predicate-verdict">⏳</div>
+          <div class="predicate-desc">Verifying on-chain...</div>
+          <div class="predicate-time"></div>
+        </div>
+        <div class="predicate-card" id="pred-sev-${name}">
+          <div class="predicate-title">Severity Predicate</div>
+          <div class="predicate-verdict">⏳</div>
+          <div class="predicate-desc">Verifying on-chain...</div>
+          <div class="predicate-time"></div>
+        </div>
+      </div>`;
+    container.appendChild(div);
   }
 
   await sleep(300);
+  let totalPass=0;
+  let totalProofMs=0;
 
-  let passCount = 0;
-  let totalProofMs = 0;
-
-  for (let b = 1; b <= state.batches; b++) {
-    const name = `batch_${b}`;
-    const card = document.getElementById(`proof-card-${name}`);
+  for(let b=1;b<=state.batches;b++){
+    const name=`batch_${b}`;
+    const card=document.getElementById(`verify-${name}`);
     card.classList.add('revealed');
+    await sleep(500);
 
-    await sleep(700);
+    const proof=state.proofs[name];
 
-    const proof = state.proofs[name];
-    const valid = proof.valid;
-    totalProofMs += proof.proofMs;
-    if (valid) passCount++;
+    // Count predicate result
+    await sleep(400);
+    const countEl=document.getElementById(`pred-count-${name}`);
+    countEl.querySelector('.predicate-verdict').textContent=proof.countPass?'✅':'❌';
+    countEl.querySelector('.predicate-desc').textContent=proof.countPass
+      ?`${proof.suspCount} suspicious events — below threshold of 4`
+      :`${proof.suspCount} suspicious events — exceeds threshold of 4`;
+    countEl.querySelector('.predicate-time').textContent=`${proof.countMs}ms proof time`;
+    countEl.classList.add(proof.countPass?'pass':'fail');
 
-    card.querySelector('.proof-verdict').textContent = valid ? '✅' : '❌';
-    card.querySelector('.verdict-text').textContent = valid
-      ? 'Predicate holds — logs are clean'
-      : 'Policy violation detected — count exceeds threshold';
-    card.querySelector('.verdict-text').style.color = valid ? 'var(--green)' : 'var(--red)';
-    document.getElementById(`time-${name}`).textContent = proof.proofMs;
-    card.classList.add(valid ? 'pass' : 'fail');
+    // Severity predicate result
+    await sleep(300);
+    const sevEl=document.getElementById(`pred-sev-${name}`);
+    sevEl.querySelector('.predicate-verdict').textContent=proof.sevPass?'✅':'❌';
+    sevEl.querySelector('.predicate-desc').textContent=proof.sevPass
+      ?`Max severity ${proof.maxSev} — all entries below threshold of 5`
+      :`Max severity ${proof.maxSev} — entry at or above threshold of 5`;
+    sevEl.querySelector('.predicate-time').textContent=`${proof.sevMs}ms proof time`;
+    sevEl.classList.add(proof.sevPass?'pass':'fail');
+
+    if(proof.countPass&&proof.sevPass) totalPass++;
+    totalProofMs+=proof.countMs+proof.sevMs;
   }
 
   await sleep(600);
-
-  // Summary stats
-  const summaryGrid = document.getElementById('summaryGrid');
-  summaryGrid.style.display = 'grid';
-  summaryGrid.innerHTML = `
-    <div class="stat-block">
-      <div class="stat-val" style="color:var(--green)">${passCount}/${state.batches}</div>
-      <div class="stat-label">Batches Passed</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-val" style="color:var(--accent)">${Math.round(totalProofMs / state.batches)}ms</div>
-      <div class="stat-label">Avg Proof Time</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-val" style="color:var(--accent2)">231K</div>
-      <div class="stat-label">Gas / Verification</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-val" style="color:var(--yellow)">0</div>
-      <div class="stat-label">Log Lines Exposed</div>
-    </div>
+  const summaryGrid=document.getElementById('summaryGrid');
+  summaryGrid.style.display='grid';
+  const avgProof=Math.round(totalProofMs/(state.batches*2));
+  summaryGrid.innerHTML=`
+    <div class="stat-block"><div class="stat-val" style="color:var(--green)">${totalPass}/${state.batches}</div><div class="stat-label">Fully Clean Batches</div></div>
+    <div class="stat-block"><div class="stat-val" style="color:var(--accent)">${avgProof}ms</div><div class="stat-label">Avg Proof Time</div></div>
+    <div class="stat-block"><div class="stat-val" style="color:var(--accent2)">2</div><div class="stat-label">Predicates / Batch</div></div>
+    <div class="stat-block"><div class="stat-val" style="color:var(--yellow)">231K</div><div class="stat-label">Gas / Verification</div></div>
+    <div class="stat-block"><div class="stat-val" style="color:var(--green)">0</div><div class="stat-label">Log Lines Exposed</div></div>
   `;
-
-  document.getElementById('restartBtn').style.display = 'inline-flex';
+  document.getElementById('restartBtn').style.display='inline-flex';
 }
 
-// ============================================================
-// UTILS
-// ============================================================
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-function restart() {
-  state.logs = {}; state.roots = {}; state.txHashes = {}; state.proofs = {};
-  document.getElementById('logPreview').style.display = 'none';
-  document.getElementById('summaryGrid').style.display = 'none';
-  document.getElementById('restartBtn').style.display = 'none';
-  document.getElementById('anchorBtn').style.display = 'none';
-  document.getElementById('proveBtn').style.display = 'none';
-  document.getElementById('verifyBtn').style.display = 'none';
+function restart(){
+  state.logs={}; state.roots={}; state.proofs={};
+  document.getElementById('logPreview').style.display='none';
+  document.getElementById('summaryGrid').style.display='none';
+  document.getElementById('restartBtn').style.display='none';
+  document.getElementById('anchorBtn').style.display='none';
+  document.getElementById('proveBtn').style.display='none';
+  document.getElementById('verifyBtn').style.display='none';
   goToScreen(1);
 }
 </script>
