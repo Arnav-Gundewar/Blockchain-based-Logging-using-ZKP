@@ -12,7 +12,8 @@
   "type": "commonjs",
   "dependencies": {
     "circomlib": "^2.0.5",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.2",

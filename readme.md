@@ -48,7 +48,6 @@ This system is useful whenever a verifier needs assurance about logs they are **
 - **Healthcare & financial compliance** — prove access-control policies were followed without exposing the underlying patient or transaction records referenced in those logs
 
 ## Setup
-
 ### 1. Install dependencies
 ```bash
 npm install
@@ -93,23 +92,23 @@ npx hardhat run scripts/verify_onchain.js --network sepolia
 
 ## Benchmark Results (batch size = 8 entries)
 ```
-| Metric | Value |
-|--------|-------|
-| Witness generation | ~120ms |
-| Proof generation | ~1184ms avg |
-| Local verification | ~540ms avg |
-| Root anchoring gas | 145,191 |
-| ZK proof verification gas | 231,374 |
-| Privacy overhead | ~60% extra gas |
+│ Metric │ Value │
+│--------│-------│
+│ Witness generation │ ~120ms │
+│ Proof generation │ ~1184ms avg │
+│ Local verification │ ~540ms avg │
+│ Root anchoring gas │ 145,191 │
+│ ZK proof verification gas │ 231,374 │
+│ Privacy overhead │ ~60% extra gas │
 ```
 ## Deployed Contracts (Sepolia)
 ```
-| Contract | Address |
-|----------|---------|
-| LogAnchor | `0xd2fBd6579f069481CF43ecdB1a91CC74D1aE60f8` |
-| LogVerifier | `0xfB0B444EEe2d6C83AE957C6EAfC8b62a4F232934` |
+│ Contract │ Address │
+│----------│---------│
+│ LogAnchor │ `0xd2fBd6579f069481CF43ecdB1a91CC74D1aE60f8` │
+│ LogVerifier │ `0xfB0B444EEe2d6C83AE957C6EAfC8b62a4F232934` │
 ```
 ## Team
 
-- **Arnav Gundewar** — ZK circuits, smart contracts, blockchain pipeline
-- **Taronish Davar** — Log generation, pipeline integration
+- **Arnav Gundewar** — ZK Circuits, Smart Contracts, Blockchain Pipeline
+- **Taronish Davar** — Log Generation, Pipeline integration, Dashboard.

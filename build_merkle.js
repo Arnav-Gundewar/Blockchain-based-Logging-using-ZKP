@@ -29,7 +29,7 @@ async function processBatch(poseidon, logs, batchName) {
         const pathIndices = [];
         let idx = leafIndex;
 
-        for (let lvl = 0; lvl < levels.length - 1; lvl++) {
+        for (let lvl = 0; lvl < levels.length-1; lvl++) {
             const isRight = idx % 2;
             const siblingIdx = isRight ? idx - 1 : idx + 1;
             pathElements.push(levels[lvl][siblingIdx].toString());

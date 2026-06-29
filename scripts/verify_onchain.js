@@ -28,6 +28,9 @@ async function main() {
     const SeverityVerifier = await hre.ethers.getContractFactory("SeverityBatchVerifier");
     const severityVerifier = SeverityVerifier.attach(addresses.severityVerifier);
 
+    // Load anchored IDs from this session
+    const anchoredIds = JSON.parse(fs.readFileSync("anchored_ids.json"));
+
     const batches = fs.readdirSync(".")
         .filter(f => f.match(/^proof_batch_\d+\.json$/))
         .sort((a, b) => parseInt(a.match(/\d+/)[0]) - parseInt(b.match(/\d+/)[0]))
@@ -40,22 +43,21 @@ async function main() {
     for (const batch of batches) {
         process.stdout.write(`Verifying ${batch}... `);
 
-        // Verify count predicate
         const countValid = await verifyProof(
             logVerifier,
             `proof_${batch}.json`,
             `public_${batch}.json`
         );
 
-        // Verify severity predicate
         const sevValid = await verifyProof(
             severityVerifier,
             `proof_sev_${batch}.json`,
             `public_sev_${batch}.json`
         );
 
-        // Check root matches on-chain anchor
-        const [storedRoot] = await logAnchor.getRoot(batch);
+        // Use the unique anchored ID for this batch
+        const anchoredId = anchoredIds[batch];
+        const [storedRoot] = await logAnchor.getRoot(anchoredId);
         const merkleOutput = JSON.parse(fs.readFileSync(`merkle_output_${batch}.json`));
         const rootMatches = storedRoot === BigInt(merkleOutput.root);
 
@@ -64,6 +66,7 @@ async function main() {
 
         results.push({
             batch,
+            anchoredId,
             rootMatches,
             countValid,
             sevValid,
@@ -72,7 +75,7 @@ async function main() {
         });
 
         const status = countValid && sevValid && rootMatches ? "✅" : "❌";
-        console.log(`${status} count:${pub[0]==="1"?"PASS":"FAIL"} sev:${pubSev[0]==="1"?"PASS":"FAIL"} root:${rootMatches?"✓":"✗"}`);
+        console.log(`${status} count:${pub[0]==="1"?"PASS":"FAIL"} sev:${pubSev[0]==="1"?"PASS":"FAIL"} root:${rootMatches?"✓":"✗"} id:${anchoredId}`);
     }
 
     console.log("\n=== SUMMARY ===");

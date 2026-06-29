@@ -1,46 +1,35 @@
 [
   {
     "batch": "batch_1",
-    "count_valid": "1",
+    "count_valid": "0",
     "sev_valid": "0",
-    "witnessMs": 136,
-    "proofMs": 1218,
-    "verifyMs": 630,
-    "sevWitnessMs": 113,
-    "sevProofMs": 1133,
-    "sevVerifyMs": 576
+    "countThreshold": 3,
+    "sevThreshold": 5,
+    "witnessMs": 176,
+    "proofMs": 1583,
+    "sevWitnessMs": 110,
+    "sevProofMs": 1144
   },
   {
     "batch": "batch_2",
     "count_valid": "0",
-    "sev_valid": "1",
-    "witnessMs": 106,
-    "proofMs": 1106,
-    "verifyMs": 525,
-    "sevWitnessMs": 98,
-    "sevProofMs": 1116,
-    "sevVerifyMs": 569
+    "sev_valid": "0",
+    "countThreshold": 3,
+    "sevThreshold": 5,
+    "witnessMs": 126,
+    "proofMs": 1150,
+    "sevWitnessMs": 130,
+    "sevProofMs": 1141
   },
   {
     "batch": "batch_3",
     "count_valid": "1",
     "sev_valid": "1",
-    "witnessMs": 106,
-    "proofMs": 1105,
-    "verifyMs": 516,
-    "sevWitnessMs": 96,
-    "sevProofMs": 1125,
-    "sevVerifyMs": 551
-  },
-  {
-    "batch": "batch_4",
-    "count_valid": "0",
-    "sev_valid": "0",
-    "witnessMs": 106,
-    "proofMs": 1095,
-    "verifyMs": 518,
-    "sevWitnessMs": 101,
-    "sevProofMs": 1076,
-    "sevVerifyMs": 554
+    "countThreshold": 3,
+    "sevThreshold": 5,
+    "witnessMs": 141,
+    "proofMs": 1190,
+    "sevWitnessMs": 123,
+    "sevProofMs": 1167
   }
 ]

@@ -1,34 +1,29 @@
 [
   {
     "batch": "batch_1",
+    "anchoredId": "batch_1_1782721167649",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
-    "count_predicate": "PASS",
+    "count_predicate": "FAIL",
     "sev_predicate": "FAIL"
   },
   {
     "batch": "batch_2",
-    "rootMatches": true,
-    "countValid": true,
-    "sevValid": true,
-    "count_predicate": "FAIL",
-    "sev_predicate": "PASS"
-  },
-  {
-    "batch": "batch_3",
-    "rootMatches": true,
-    "countValid": true,
-    "sevValid": true,
-    "count_predicate": "PASS",
-    "sev_predicate": "PASS"
-  },
-  {
-    "batch": "batch_4",
+    "anchoredId": "batch_2_1782721167649",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
     "count_predicate": "FAIL",
     "sev_predicate": "FAIL"
+  },
+  {
+    "batch": "batch_3",
+    "anchoredId": "batch_3_1782721167649",
+    "rootMatches": true,
+    "countValid": true,
+    "sevValid": true,
+    "count_predicate": "PASS",
+    "sev_predicate": "PASS"
   }
 ]
