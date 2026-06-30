@@ -448,11 +448,13 @@ async function runProving(){
 
     state.benchmark=data.benchmark;
 
-    data.benchmark.forEach((result, idx) => {
+    for(let idx=0; idx<data.benchmark.length; idx++){
+      const result = data.benchmark[idx];
       const b = idx + 1;
       const countPass = result.count_valid === '1';
       const sevPass = result.sev_valid === '1';
 
+      await sleep(300);
       const crCount = document.getElementById(`cr-count-${b}`);
       if(crCount){
         crCount.classList.remove('running');
@@ -463,6 +465,7 @@ async function runProving(){
       const cdCount = document.getElementById(`cd-count-${b}`);
       if(cdCount) cdCount.textContent=`threshold: ${result.countThreshold||countThr} · proof generated`;
 
+      await sleep(200);
       const crSev = document.getElementById(`cr-sev-${b}`);
       if(crSev){
         crSev.classList.remove('running');
@@ -475,7 +478,7 @@ async function runProving(){
 
       const pbs = document.getElementById(`pbs-${b}`);
       if(pbs) pbs.textContent='Done';
-    });
+    }
 
     const avgCount=Math.round(data.benchmark.reduce((a,r)=>a+r.proofMs,0)/data.benchmark.length);
     status.textContent=`✓ All proofs generated — avg ${avgCount}ms per circuit`;
@@ -540,10 +543,12 @@ async function runVerification(){
     }
     let totalPass=0;
 
-    data.results.forEach((result, idx) => {
+    for(let idx=0; idx<data.results.length; idx++){
+      const result = data.results[idx];
       const b = idx + 1;
       const bResult=state.benchmark.find(r=>r.batch===result.batch)||{};
 
+      await sleep(400);
       const countEl=document.getElementById(`pc-count-${b}`);
       const countPass=result.count_predicate==='PASS';
       if(countEl){
@@ -555,6 +560,7 @@ async function runVerification(){
         countEl.classList.add(countPass?'pass':'fail');
       }
 
+      await sleep(300);
       const sevEl=document.getElementById(`pc-sev-${b}`);
       const sevPass=result.sev_predicate==='PASS';
       if(sevEl){
@@ -567,7 +573,7 @@ async function runVerification(){
       }
 
       if(countPass&&sevPass) totalPass++;
-    });
+    }
 
     const avgProof=state.benchmark.length
       ?Math.round(state.benchmark.reduce((a,r)=>a+r.proofMs+r.sevProofMs,0)/(state.benchmark.length*2))

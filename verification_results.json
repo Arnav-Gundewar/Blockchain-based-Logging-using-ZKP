@@ -1,7 +1,7 @@
 [
   {
     "batch": "batch_1",
-    "anchoredId": "batch_1_1782721167649",
+    "anchoredId": "batch_1_1782800410265",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
@@ -10,16 +10,25 @@
   },
   {
     "batch": "batch_2",
-    "anchoredId": "batch_2_1782721167649",
+    "anchoredId": "batch_2_1782800410265",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
-    "count_predicate": "FAIL",
+    "count_predicate": "PASS",
     "sev_predicate": "FAIL"
   },
   {
     "batch": "batch_3",
-    "anchoredId": "batch_3_1782721167649",
+    "anchoredId": "batch_3_1782800410265",
+    "rootMatches": true,
+    "countValid": true,
+    "sevValid": true,
+    "count_predicate": "PASS",
+    "sev_predicate": "FAIL"
+  },
+  {
+    "batch": "batch_4",
+    "anchoredId": "batch_4_1782800410265",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
