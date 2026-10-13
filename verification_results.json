@@ -1,38 +1,50 @@
 [
   {
     "batch": "batch_1",
-    "anchoredId": "batch_1_1782800410265",
+    "anchoredId": "batch_1_1791817651095",
+    "txHash": "0x0a9b805e21401c5fa300225af70ded080e231003df586c40f1b52db78c73c4b6",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
-    "count_predicate": "FAIL",
-    "sev_predicate": "FAIL"
+    "count_predicate": "PASS",
+    "sev_predicate": "FAIL",
+    "countGas": 225290,
+    "sevGas": 225302
   },
   {
     "batch": "batch_2",
-    "anchoredId": "batch_2_1782800410265",
+    "anchoredId": "batch_2_1791817651095",
+    "txHash": "0x26df1a4b3d90c8b81eca103959d449d9d55a22b5adc6e699a6883d0841c27c05",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
     "count_predicate": "PASS",
-    "sev_predicate": "FAIL"
+    "sev_predicate": "FAIL",
+    "countGas": 225314,
+    "sevGas": 225302
   },
   {
     "batch": "batch_3",
-    "anchoredId": "batch_3_1782800410265",
+    "anchoredId": "batch_3_1791817651095",
+    "txHash": "0xe82545d57d2c74932a6a189850138780a4b5c54987f18cf78a07af158b1adc77",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
     "count_predicate": "PASS",
-    "sev_predicate": "FAIL"
+    "sev_predicate": "FAIL",
+    "countGas": 225326,
+    "sevGas": 225290
   },
   {
     "batch": "batch_4",
-    "anchoredId": "batch_4_1782800410265",
+    "anchoredId": "batch_4_1791817651095",
+    "txHash": "0x46ac7bd291a9ac0b8199a3bde05634673a5e1a47208f043efcb37a6e52978af3",
     "rootMatches": true,
     "countValid": true,
     "sevValid": true,
     "count_predicate": "PASS",
-    "sev_predicate": "PASS"
+    "sev_predicate": "FAIL",
+    "countGas": 225290,
+    "sevGas": 225278
   }
 ]

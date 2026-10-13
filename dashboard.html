@@ -30,12 +30,18 @@
   label{font-size:12px;font-family:var(--mono);color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
   input[type="number"]{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:2rem;font-weight:600;padding:16px 20px;width:100%;text-align:center;outline:none;transition:border-color 0.2s;}
   input[type="number"]:focus{border-color:var(--accent);}
+  input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;}
+  input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;transition:transform 0.1s;}
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2);}
   .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:8px;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:0.08em;cursor:pointer;border:none;transition:all 0.2s;text-transform:uppercase;}
   .btn-primary{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#000;}
   .btn-primary:hover{opacity:0.85;transform:translateY(-1px);}
   .btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
   .btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--border);}
   .btn-ghost:hover{border-color:var(--accent);}
+  .btn-warn{background:linear-gradient(135deg,#ff9800,var(--yellow));color:#000;}
+  .btn-warn:hover{opacity:0.85;transform:translateY(-1px);}
+  .btn-warn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
   .log-table-wrap{overflow-x:auto;margin-top:24px;border-radius:8px;border:1px solid var(--border);}
   table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px;}
   th{background:var(--surface2);padding:10px 14px;text-align:left;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--border);}
@@ -47,7 +53,7 @@
   .badge-green{background:rgba(0,255,136,0.15);color:var(--green);}
   .sev{display:inline-flex;align-items:center;gap:6px;}
   .sev-dot{width:8px;height:8px;border-radius:50%;}
-  .sev-1{background:#4caf50;}.sev-2{background:#8bc34a;}.sev-3{background:var(--yellow);}.sev-4{background:#ff9800;}.sev-5{background:var(--red);}
+  .sev-0{background:#2e7d32;}.sev-1{background:#4caf50;}.sev-2{background:#8bc34a;}.sev-3{background:var(--yellow);}.sev-4{background:#ffb300;}.sev-5{background:#ff9800;}.sev-6{background:#ff7043;}.sev-7{background:#ff5252;}.sev-8{background:var(--red);}.sev-9{background:#d50000;}
   .batch-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
   .batch-tab{padding:6px 16px;border-radius:6px;font-family:var(--mono);font-size:11px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all 0.2s;}
   .batch-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,0.08);}
@@ -112,12 +118,37 @@
   .tag-sev{background:rgba(123,97,255,0.12);color:var(--accent2);border:1px solid rgba(123,97,255,0.3);}
   .error-msg{background:rgba(255,68,102,0.1);border:1px solid var(--red);border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--red);margin-top:16px;display:none;}
   .status-line{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:12px;text-align:center;min-height:20px;}
+  .mode-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .mode-tab{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;transition:all 0.2s;text-align:left;}
+  .mode-tab:hover{border-color:var(--accent);}
+  .mode-tab.active{border-color:var(--accent);background:rgba(0,212,255,0.08);}
+  .mode-tab-title{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:0.05em;}
+  .mode-tab.active .mode-tab-title{color:var(--accent);}
+  .mode-tab-desc{font-size:10px;color:var(--muted);line-height:1.3;}
+  /* HITL styles */
+  .hitl-batch-card{background:var(--surface);border:1px solid var(--red);border-radius:12px;padding:24px;margin-bottom:20px;width:100%;max-width:900px;}
+  .hitl-batch-card.recertified{border-color:var(--green);}
+  .hitl-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .hitl-badge{padding:3px 10px;border-radius:4px;font-family:var(--mono);font-size:10px;font-weight:600;background:rgba(255,68,102,0.15);color:var(--red);border:1px solid rgba(255,68,102,0.3);}
+  .hitl-badge.pass{background:rgba(0,255,136,0.15);color:var(--green);border:1px solid rgba(0,255,136,0.3);}
+  .hitl-log-row{display:grid;grid-template-columns:32px 1fr 120px 80px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+  .hitl-log-row:last-of-type{border-bottom:none;}
+  .hitl-log-id{font-family:var(--mono);font-size:11px;color:var(--muted);}
+  .hitl-log-event{font-size:12px;}
+  .hitl-slider-wrap{display:flex;align-items:center;gap:8px;}
+  .hitl-slider-val{font-family:var(--mono);font-size:12px;font-weight:600;width:20px;text-align:center;}
+  .hitl-note{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:12px;padding:10px 14px;outline:none;margin:16px 0;resize:vertical;}
+  .hitl-note:focus{border-color:var(--accent);}
+  .hitl-result{margin-top:16px;padding:14px 16px;border-radius:8px;font-family:var(--mono);font-size:12px;display:none;}
+  .hitl-result.pass{background:rgba(0,255,136,0.06);border:1px solid var(--green);color:var(--green);}
+  .hitl-result.fail{background:rgba(255,68,102,0.06);border:1px solid var(--red);color:var(--red);}
+  .hitl-result.running{background:rgba(0,212,255,0.06);border:1px solid var(--accent);color:var(--accent);}
 </style>
 </head>
 <body>
 
 <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
-<div class="step-indicator" id="stepIndicator">01 / 05</div>
+<div class="step-indicator" id="stepIndicator">01 / 06</div>
 <div class="transition-overlay" id="transitionOverlay">
   <div class="spin" style="font-size:24px">⟳</div>
   <div class="transition-text" id="transitionText">INITIALIZING</div>
@@ -127,12 +158,29 @@
 <div class="screen active" id="screen1">
   <div class="hero-tag"><div class="hero-dot"></div>ZK LOG SYSTEM — LIVE</div>
   <div class="eyebrow">Step 01 — Origin</div>
-  <h1 class="centered">Generate your<br><strong>log batches</strong></h1>
-  <p class="subtitle">Each batch is 8 log entries capturing real system events. Set your thresholds, generate logs, and prove properties without revealing a single log line.</p>
+  <h1 class="centered">Sample your<br><strong>log batches</strong></h1>
+  <p class="subtitle">Each batch is 8 real authentication events sampled from the LANL Multi-Source Cyber Security Dataset. Set your thresholds, sample logs, and prove properties without revealing a single log line.</p>
   <div class="card">
     <div class="input-group">
       <label>Number of Batches</label>
       <input type="number" id="batchCount" min="1" max="8" value="4"/>
+    </div>
+    <div class="input-group">
+      <label>Dataset Mix</label>
+      <div class="mode-tabs" id="modeTabs">
+        <button type="button" class="mode-tab active" data-mode="mixed" onclick="selectMode('mixed')">
+          <span class="mode-tab-title">Mixed</span>
+          <span class="mode-tab-desc">Some clean, some anomalous</span>
+        </button>
+        <button type="button" class="mode-tab" data-mode="clean" onclick="selectMode('clean')">
+          <span class="mode-tab-title">Clean</span>
+          <span class="mode-tab-desc">Low suspicion — expect PASS</span>
+        </button>
+        <button type="button" class="mode-tab" data-mode="anomalous" onclick="selectMode('anomalous')">
+          <span class="mode-tab-title">Anomalous</span>
+          <span class="mode-tab-desc">High suspicion — expect FAIL</span>
+        </button>
+      </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
       <div class="input-group" style="margin-bottom:0">
@@ -141,11 +189,11 @@
       </div>
       <div class="input-group" style="margin-bottom:0">
         <label>Severity Threshold</label>
-        <input type="number" id="sevThreshold" min="1" max="5" value="5" style="font-size:1.4rem;padding:12px 16px;"/>
+        <input type="number" id="sevThreshold" min="1" max="9" value="5" style="font-size:1.4rem;padding:12px 16px;"/>
       </div>
     </div>
     <div style="display:flex;gap:12px;justify-content:center;margin-bottom:16px;">
-      <button class="btn btn-primary" onclick="generateLogs()" id="generateBtn">⚡ Generate Logs</button>
+      <button class="btn btn-primary" onclick="generateLogs()" id="generateBtn">⚡ Sample LANL Logs</button>
     </div>
     <div class="status-line" id="gen-status"></div>
     <div class="error-msg" id="gen-error"></div>
@@ -153,7 +201,7 @@
       <div class="batch-tabs" id="batchTabs"></div>
       <div class="log-table-wrap">
         <table>
-          <thead><tr><th>ID</th><th>Timestamp</th><th>Event</th><th>Severity</th><th>Code</th><th>IP</th></tr></thead>
+          <thead><tr><th>ID</th><th>Timestamp</th><th>Event</th><th>Severity</th><th>Code</th><th>Source Host</th></tr></thead>
           <tbody id="logTableBody"></tbody>
         </table>
       </div>
@@ -187,9 +235,9 @@
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
       <div>
         <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:4px;">CONTRACT</div>
-        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);">0xd2fBd657...1aE60f8</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--accent);">LogAnchor.sol — Sepolia</div>
       </div>
-      <div style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);">SEPOLIA TESTNET</div>
+      <div style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);">~240K GAS / ANCHOR</div>
     </div>
     <div class="scan-line"></div>
     <div class="status-line" id="anchor-status">Sending transactions...</div>
@@ -224,29 +272,59 @@
   <div class="status-line" id="verify-status" style="margin-bottom:16px;">Verifying on-chain...</div>
   <div id="verifyBatches"></div>
   <div class="summary-grid" id="summaryGrid" style="display:none"></div>
-  <button class="btn btn-ghost" onclick="restart()" style="margin-top:24px;display:none" id="restartBtn">↺ Run Again</button>
+  <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;width:100%;max-width:900px;">
+    <button class="btn btn-ghost" onclick="restart()" style="display:none" id="restartBtn">↺ Run Again</button>
+    <button class="btn btn-warn" onclick="goToScreen(6)" style="display:none" id="hitlBtn">🔍 Analyst Review</button>
+    <a class="btn btn-ghost" href="etherscan.html" target="_blank" rel="noopener" id="etherscanBtn" style="display:none;text-decoration:none;">↗ View on Etherscan</a>
+  </div>
+</div>
+
+<!-- SCREEN 6 — HITL ANALYST REVIEW -->
+<div class="screen" id="screen6">
+  <div class="eyebrow">Step 06 — Human-in-the-Loop</div>
+  <h1 class="centered">Analyst<br><strong>Review</strong></h1>
+  <p class="subtitle">Flagged batches are shown below. Override severity scores manually if the automated scoring needs correction, then re-certify — a fresh ZK proof will be generated and anchored on-chain.</p>
+  <div id="hitlBatches" style="width:100%;max-width:900px;"></div>
+  <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;width:100%;max-width:900px;">
+    <button class="btn btn-ghost" onclick="goToScreen(5)">← Back to Results</button>
+    <button class="btn btn-ghost" onclick="restart()" id="hitlRestartBtn">↺ New Run</button>
+    <a class="btn btn-ghost" href="etherscan.html" target="_blank" rel="noopener" style="text-decoration:none;">↗ View on Etherscan</a>
+  </div>
 </div>
 
 <script>
-const state = { batches: 4, logs: {}, roots: {}, benchmark: [], verification: [] };
+const state = {
+  batches: 4, mode: 'mixed',
+  logs: {}, roots: {}, benchmark: [], verification: [],
+  gasResults: {}, failedBatches: []
+};
 
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
+function selectMode(mode){
+  state.mode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.mode === mode);
+  });
+}
+
 function goToScreen(n){
-  const texts=['','GENERATING LOGS','BUILDING MERKLE TREES','ANCHORING ON-CHAIN','GENERATING PROOFS','VERIFYING ON-CHAIN'];
+  const texts=['','SAMPLING LANL LOGS','BUILDING MERKLE TREES','ANCHORING ON-CHAIN','GENERATING PROOFS','VERIFYING ON-CHAIN','ANALYST REVIEW'];
   const overlay=document.getElementById('transitionOverlay');
   overlay.querySelector('#transitionText').textContent=texts[n]||'LOADING';
   overlay.classList.add('active');
   setTimeout(()=>{
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById(`screen${n}`).classList.add('active');
-    document.getElementById('progressFill').style.width=(n/5*100)+'%';
-    document.getElementById('stepIndicator').textContent=`0${n} / 05`;
+    const pct = n === 6 ? 100 : (n/5*100);
+    document.getElementById('progressFill').style.width=pct+'%';
+    document.getElementById('stepIndicator').textContent=`0${n} / 06`;
     overlay.classList.remove('active');
     if(n===2) runMerkle();
     if(n===3) runAnchoring();
     if(n===4) runProving();
     if(n===5) runVerification();
+    if(n===6) buildHITLPanel();
   },700);
 }
 
@@ -255,24 +333,20 @@ async function generateLogs(){
   const n=parseInt(document.getElementById('batchCount').value);
   if(n<1||n>8) return;
   state.batches=n;
-
   const btn=document.getElementById('generateBtn');
   const status=document.getElementById('gen-status');
   const errEl=document.getElementById('gen-error');
   btn.disabled=true;
-  btn.innerHTML='<span class="spin">⟳</span> Generating...';
-  status.textContent='Running generate_logs.js...';
+  btn.innerHTML='<span class="spin">⟳</span> Sampling...';
+  status.textContent=`Streaming auth.txt.gz — mode: ${state.mode}...`;
   errEl.style.display='none';
-
   try {
-    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({batches:n})});
+    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({batches:n,mode:state.mode})});
     const data=await res.json();
     if(!data.success) throw new Error(data.error);
-
     state.logs=data.batches;
-    status.textContent=`✓ Generated ${n} batches — ${n*8} log entries`;
-
-    // Build tabs
+    const srcTag = data.source==='LANL' ? ' (real LANL data)' : '';
+    status.textContent=`✓ Sampled ${n} batches — ${n*8} log entries${srcTag}`;
     const tabs=document.getElementById('batchTabs');
     tabs.innerHTML='';
     for(let b=1;b<=n;b++){
@@ -289,9 +363,8 @@ async function generateLogs(){
     errEl.textContent='Error: '+e.message;
     status.textContent='';
   }
-
   btn.disabled=false;
-  btn.innerHTML='⚡ Generate Logs';
+  btn.innerHTML='⚡ Sample LANL Logs';
 }
 
 function showBatchTab(b){
@@ -301,7 +374,7 @@ function showBatchTab(b){
     <tr>
       <td>${log.id}</td>
       <td style="color:var(--muted)">${log.timestamp.replace('T',' ').substring(0,19)}</td>
-      <td><span class="badge ${log.event_code===1?'badge-red':'badge-green'}">${log.event}</span></td>
+      <td><span class="badge ${log.event_code===1?'badge-red':'badge-green'}" title="${log.meta?`outcome ${log.meta.score_breakdown.outcome_score} + logon ${log.meta.score_breakdown.logon_score} + auth ${log.meta.score_breakdown.auth_score}${log.meta.score_breakdown.logoff_penalty?' − logoff 1':''} | nulls: ${log.meta.null_fields.join(', ')||'none'} (${log.meta.imputation})`:''}">${log.event}</span></td>
       <td><span class="sev"><span class="sev-dot sev-${log.severity}"></span>${log.severity}</span></td>
       <td style="color:${log.event_code?'var(--red)':'var(--green)'}">${log.event_code===1?'⚠ 1':'✓ 0'}</td>
       <td style="color:var(--muted)">${log.ip}</td>
@@ -314,8 +387,6 @@ async function runMerkle(){
   const status=document.getElementById('merkle-status');
   grid.innerHTML='';
   status.textContent='Running build_merkle.js...';
-
-  // Show loading placeholders
   for(let b=1;b<=state.batches;b++){
     const div=document.createElement('div');
     div.className='merkle-batch';
@@ -323,15 +394,12 @@ async function runMerkle(){
     div.innerHTML=`<div class="merkle-batch-name">BATCH ${b}</div><div class="merkle-root"><span class="spin">⟳</span> Computing...</div><div class="merkle-status">—</div>`;
     grid.appendChild(div);
   }
-
   try {
     const res=await fetch('/api/merkle',{method:'POST'});
     const data=await res.json();
     if(!data.success) throw new Error(data.error);
-
     state.roots=data.roots;
     status.textContent=`✓ ${Object.keys(data.roots).length} Merkle trees built`;
-
     for(const [name,root] of Object.entries(data.roots)){
       await sleep(300);
       const el=document.getElementById(`merkle-${name}`);
@@ -342,9 +410,7 @@ async function runMerkle(){
       }
     }
     document.getElementById('anchorBtn').style.display='inline-flex';
-  } catch(e){
-    status.textContent='Error: '+e.message;
-  }
+  } catch(e){ status.textContent='Error: '+e.message; }
 }
 
 // SCREEN 3: ANCHORING
@@ -353,8 +419,6 @@ async function runAnchoring(){
   const status=document.getElementById('anchor-status');
   txList.innerHTML='';
   status.textContent='Sending transactions to Sepolia...';
-
-  // Show pending items
   for(let b=1;b<=state.batches;b++){
     const item=document.createElement('div');
     item.className='tx-item visible';
@@ -362,13 +426,10 @@ async function runAnchoring(){
     item.innerHTML=`<div class="tx-dot" style="background:var(--yellow)"></div><div class="tx-hash">Waiting for batch_${b}...</div><div class="tx-time"><span class="spin">⟳</span></div>`;
     txList.appendChild(item);
   }
-
   try {
     const res=await fetch('/api/anchor',{method:'POST'});
     const data=await res.json();
     if(!data.success) throw new Error(data.error);
-
-    // Parse tx hashes from output
     const lines=data.output.split('\n');
     let b=1;
     for(const line of lines){
@@ -392,12 +453,9 @@ async function runAnchoring(){
         }
       }
     }
-
     status.textContent=`✓ All roots anchored on Sepolia`;
     document.getElementById('proveBtn').style.display='inline-flex';
-  } catch(e){
-    status.textContent='Error: '+e.message;
-  }
+  } catch(e){ status.textContent='Error: '+e.message; }
 }
 
 // SCREEN 4: PROVING
@@ -406,8 +464,6 @@ async function runProving(){
   const status=document.getElementById('prove-status');
   container.innerHTML='';
   status.textContent='Running prove_all.js — this takes ~10 seconds per batch...';
-
-  // Build batch cards
   for(let b=1;b<=state.batches;b++){
     const div=document.createElement('div');
     div.className='prove-batch';
@@ -438,48 +494,35 @@ async function runProving(){
     container.appendChild(div);
     document.getElementById(`pbs-${b}`).textContent='Proving...';
   }
-
   try {
     const countThr=parseInt(document.getElementById('countThreshold').value)||4;
     const sevThr=parseInt(document.getElementById('sevThreshold').value)||5;
     const res=await fetch('/api/prove',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({countThreshold:countThr,sevThreshold:sevThr})});
     const data=await res.json();
     if(!data.success) throw new Error(data.error);
-
     state.benchmark=data.benchmark;
-
-    for(let idx=0; idx<data.benchmark.length; idx++){
-      const result = data.benchmark[idx];
-      const b = idx + 1;
-      const countPass = result.count_valid === '1';
-      const sevPass = result.sev_valid === '1';
-
+    for(let idx=0;idx<data.benchmark.length;idx++){
+      const result=data.benchmark[idx];
+      const b=idx+1;
+      const countPass=result.count_valid==='1';
+      const sevPass=result.sev_valid==='1';
       await sleep(300);
-      const crCount = document.getElementById(`cr-count-${b}`);
-      if(crCount){
-        crCount.classList.remove('running');
-        crCount.classList.add(countPass?'done-pass':'done-fail');
-      }
-      const csCount = document.getElementById(`cs-count-${b}`);
+      const crCount=document.getElementById(`cr-count-${b}`);
+      if(crCount){crCount.classList.remove('running');crCount.classList.add(countPass?'done-pass':'done-fail');}
+      const csCount=document.getElementById(`cs-count-${b}`);
       if(csCount) csCount.textContent=`${countPass?'✓ PASS':'✗ FAIL'} · ${result.proofMs}ms`;
-      const cdCount = document.getElementById(`cd-count-${b}`);
+      const cdCount=document.getElementById(`cd-count-${b}`);
       if(cdCount) cdCount.textContent=`threshold: ${result.countThreshold||countThr} · proof generated`;
-
       await sleep(200);
-      const crSev = document.getElementById(`cr-sev-${b}`);
-      if(crSev){
-        crSev.classList.remove('running');
-        crSev.classList.add(sevPass?'done-pass':'done-fail');
-      }
-      const csSev = document.getElementById(`cs-sev-${b}`);
+      const crSev=document.getElementById(`cr-sev-${b}`);
+      if(crSev){crSev.classList.remove('running');crSev.classList.add(sevPass?'done-pass':'done-fail');}
+      const csSev=document.getElementById(`cs-sev-${b}`);
       if(csSev) csSev.textContent=`${sevPass?'✓ PASS':'✗ FAIL'} · ${result.sevProofMs}ms`;
-      const cdSev = document.getElementById(`cd-sev-${b}`);
+      const cdSev=document.getElementById(`cd-sev-${b}`);
       if(cdSev) cdSev.textContent=`threshold: ${result.sevThreshold||sevThr} · proof generated`;
-
-      const pbs = document.getElementById(`pbs-${b}`);
+      const pbs=document.getElementById(`pbs-${b}`);
       if(pbs) pbs.textContent='Done';
     }
-
     const avgCount=Math.round(data.benchmark.reduce((a,r)=>a+r.proofMs,0)/data.benchmark.length);
     status.textContent=`✓ All proofs generated — avg ${avgCount}ms per circuit`;
     document.getElementById('verifyBtn').style.display='inline-flex';
@@ -495,8 +538,6 @@ async function runVerification(){
   const status=document.getElementById('verify-status');
   container.innerHTML='';
   status.textContent='Calling on-chain verifier contracts...';
-
-  // Show placeholders
   for(let b=1;b<=state.batches;b++){
     const div=document.createElement('div');
     div.className='verify-batch';
@@ -522,32 +563,23 @@ async function runVerification(){
       </div>`;
     container.appendChild(div);
   }
-
-  // Reveal cards with delay
   for(let b=1;b<=state.batches;b++){
     await sleep(300);
-    const vb = document.getElementById(`vb-${b}`);
+    const vb=document.getElementById(`vb-${b}`);
     if(vb) vb.classList.add('revealed');
   }
-
   try {
     const res=await fetch('/api/verify',{method:'POST'});
     const data=await res.json();
     if(!data.success) throw new Error(data.error);
-
     state.verification=data.results;
-    if(data.gasResults && data.gasResults.verifyProofGas){
-      const gas=Math.round(parseInt(data.gasResults.verifyProofGas)/1000);
-      const gasEl=document.getElementById('gas-stat');
-      if(gasEl) gasEl.textContent=gas+'K';
-    }
+    state.gasResults=data.gasResults||{};
+    state.failedBatches=[];
     let totalPass=0;
-
-    for(let idx=0; idx<data.results.length; idx++){
-      const result = data.results[idx];
-      const b = idx + 1;
+    for(let idx=0;idx<data.results.length;idx++){
+      const result=data.results[idx];
+      const b=idx+1;
       const bResult=state.benchmark.find(r=>r.batch===result.batch)||{};
-
       await sleep(400);
       const countEl=document.getElementById(`pc-count-${b}`);
       const countPass=result.count_predicate==='PASS';
@@ -559,7 +591,6 @@ async function runVerification(){
         countEl.querySelector('.predicate-time').textContent=bResult.proofMs?`${bResult.proofMs}ms proof time`:'';
         countEl.classList.add(countPass?'pass':'fail');
       }
-
       await sleep(300);
       const sevEl=document.getElementById(`pc-sev-${b}`);
       const sevPass=result.sev_predicate==='PASS';
@@ -571,14 +602,18 @@ async function runVerification(){
         sevEl.querySelector('.predicate-time').textContent=bResult.sevProofMs?`${bResult.sevProofMs}ms proof time`:'';
         sevEl.classList.add(sevPass?'pass':'fail');
       }
-
       if(countPass&&sevPass) totalPass++;
+      // Track failed batches for HITL
+      if(!countPass||!sevPass){
+        state.failedBatches.push({ batchName: result.batch, batchNum: b, countPass, sevPass });
+      }
     }
-
     const avgProof=state.benchmark.length
       ?Math.round(state.benchmark.reduce((a,r)=>a+r.proofMs+r.sevProofMs,0)/(state.benchmark.length*2))
-      :1184;
-
+      :0;
+    const g=state.gasResults||{};
+    const verifyGasK=g.verifyProofGas?Math.round(parseInt(g.verifyProofGas)/1000)+'K':'n/a';
+    const anchorGasK=g.anchorRootGas?Math.round(parseInt(g.anchorRootGas)/1000)+'K':'n/a';
     status.textContent=`✓ All batches verified on-chain`;
     const summaryGrid=document.getElementById('summaryGrid');
     summaryGrid.style.display='grid';
@@ -586,22 +621,165 @@ async function runVerification(){
       <div class="stat-block"><div class="stat-val" style="color:var(--green)">${totalPass}/${state.batches}</div><div class="stat-label">Fully Clean Batches</div></div>
       <div class="stat-block"><div class="stat-val" style="color:var(--accent)">${avgProof}ms</div><div class="stat-label">Avg Proof Time</div></div>
       <div class="stat-block"><div class="stat-val" style="color:var(--accent2)">2</div><div class="stat-label">Predicates / Batch</div></div>
-      <div class="stat-block"><div class="stat-val" style="color:var(--yellow)" id="gas-stat">231K</div><div class="stat-label">Gas / Verification</div></div>
+      <div class="stat-block"><div class="stat-val" style="color:var(--yellow)">${verifyGasK}</div><div class="stat-label">Gas / Verification</div></div>
+      <div class="stat-block"><div class="stat-val" style="color:var(--yellow)">${anchorGasK}</div><div class="stat-label">Gas / Anchor</div></div>
       <div class="stat-block"><div class="stat-val" style="color:var(--green)">0</div><div class="stat-label">Log Lines Exposed</div></div>`;
     document.getElementById('restartBtn').style.display='inline-flex';
+    document.getElementById('etherscanBtn').style.display='inline-flex';
+    // Show HITL button only if there are failed batches
+    if(state.failedBatches.length > 0){
+      document.getElementById('hitlBtn').style.display='inline-flex';
+    }
+  } catch(e){ status.textContent='Error: '+e.message; }
+}
+
+// SCREEN 6: HITL
+function buildHITLPanel(){
+  const container=document.getElementById('hitlBatches');
+  container.innerHTML='';
+
+  if(state.failedBatches.length===0){
+    container.innerHTML=`<div style="text-align:center;padding:48px;font-family:var(--mono);color:var(--green)">✓ All batches passed — no analyst review needed.</div>`;
+    return;
+  }
+
+  for(const fb of state.failedBatches){
+    const logs=state.logs[`batch_${fb.batchNum}`]||[];
+    const card=document.createElement('div');
+    card.className='hitl-batch-card';
+    card.id=`hitl-card-${fb.batchNum}`;
+
+    const failReasons=[];
+    if(!fb.countPass) failReasons.push('Count predicate FAIL');
+    if(!fb.sevPass)   failReasons.push('Severity predicate FAIL');
+
+    card.innerHTML=`
+      <div class="hitl-header">
+        <div style="font-family:var(--mono);font-size:12px;font-weight:600">BATCH ${fb.batchNum}</div>
+        <div class="hitl-badge" id="hitl-badge-${fb.batchNum}">${failReasons.join(' · ')}</div>
+        <div style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted)">Auto-scored — analyst can override</div>
+      </div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:12px;letter-spacing:0.08em;text-transform:uppercase;">Log entries — adjust severity if needed</div>
+      <div id="hitl-rows-${fb.batchNum}"></div>
+      <div style="margin-top:16px;">
+        <label style="font-size:12px;font-family:var(--mono);color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;display:block;">Analyst note</label>
+        <textarea class="hitl-note" id="hitl-note-${fb.batchNum}" rows="2" placeholder="Optional — explain the override rationale..."></textarea>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:8px;">
+        <button class="btn btn-warn" id="hitl-btn-${fb.batchNum}" onclick="recertify(${fb.batchNum},'${fb.batchName}')">⚡ Re-certify Batch ${fb.batchNum}</button>
+        <div class="status-line" id="hitl-status-${fb.batchNum}" style="margin-top:0;text-align:left;"></div>
+      </div>
+      <div class="hitl-result" id="hitl-result-${fb.batchNum}"></div>`;
+
+    container.appendChild(card);
+
+    // Build log rows with sliders
+    const rowsContainer=document.getElementById(`hitl-rows-${fb.batchNum}`);
+    for(const log of logs){
+      const row=document.createElement('div');
+      row.className='hitl-log-row';
+      row.innerHTML=`
+        <div class="hitl-log-id">${log.id}</div>
+        <div class="hitl-log-event">
+          <span class="badge ${log.event_code===1?'badge-red':'badge-green'}">${log.event}</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:6px;">${log.user||log.ip}</span>
+        </div>
+        <div class="hitl-slider-wrap">
+          <input type="range" min="0" max="9" value="${log.severity}"
+            id="hitl-slider-${fb.batchNum}-${log.id}"
+            oninput="updateSliderVal(${fb.batchNum},${log.id},this.value)"/>
+          <span class="hitl-slider-val" id="hitl-val-${fb.batchNum}-${log.id}"
+            style="color:${severityColor(log.severity)}">${log.severity}</span>
+        </div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">auto: ${log.severity}</div>`;
+      rowsContainer.appendChild(row);
+    }
+  }
+}
+
+function severityColor(s){
+  const cols=['#2e7d32','#4caf50','#8bc34a','#ffcc00','#ffb300','#ff9800','#ff7043','#ff5252','#ff4466','#d50000'];
+  return cols[Math.min(s,9)]||'#888';
+}
+
+function updateSliderVal(batchNum,logId,val){
+  const el=document.getElementById(`hitl-val-${batchNum}-${logId}`);
+  if(el){el.textContent=val;el.style.color=severityColor(parseInt(val));}
+}
+
+async function recertify(batchNum, batchName){
+  const btn=document.getElementById(`hitl-btn-${batchNum}`);
+  const status=document.getElementById(`hitl-status-${batchNum}`);
+  const resultEl=document.getElementById(`hitl-result-${batchNum}`);
+  const note=document.getElementById(`hitl-note-${batchNum}`).value;
+
+  // Collect overridden scores from sliders
+  const logs=state.logs[`batch_${batchNum}`]||[];
+  const overriddenScores=logs.map(log=>{
+    const slider=document.getElementById(`hitl-slider-${batchNum}-${log.id}`);
+    return slider?parseInt(slider.value):log.severity;
+  });
+
+  btn.disabled=true;
+  btn.innerHTML='<span class="spin">⟳</span> Re-certifying...';
+  status.textContent='Running full pipeline with overridden scores...';
+  resultEl.style.display='none';
+
+  try {
+    const res=await fetch('/api/hitl-recertify',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({batchName,overriddenScores,analystNote:note})
+    });
+    const data=await res.json();
+    if(!data.success) throw new Error(data.error);
+
+    const cr=data.batchResult;
+    const countPass=cr.count_predicate==='PASS';
+    const sevPass=cr.sev_predicate==='PASS';
+    const bothPass=countPass&&sevPass;
+
+    // Update badge
+    const badge=document.getElementById(`hitl-badge-${batchNum}`);
+    if(badge){
+      badge.className='hitl-badge'+(bothPass?' pass':'');
+      badge.textContent=bothPass
+        ?'✓ Re-certified — PASS'
+        :`Re-certified · Count:${cr.count_predicate} · Sev:${cr.sev_predicate}`;
+    }
+
+    // Update card border
+    const card=document.getElementById(`hitl-card-${batchNum}`);
+    if(bothPass&&card) card.classList.add('recertified');
+
+    // Show result
+    resultEl.className='hitl-result '+(bothPass?'pass':'fail');
+    resultEl.style.display='block';
+    const txLine=cr.txHash?`\nTX: ${cr.txHash.substring(0,22)}...`:'';
+    resultEl.textContent=`Re-anchored on-chain with analyst_reviewed=true\nCount: ${cr.count_predicate} · Severity: ${cr.sev_predicate}${txLine}`;
+
+    status.textContent='✓ Re-certification complete';
+    btn.innerHTML='✓ Re-certified';
+
   } catch(e){
     status.textContent='Error: '+e.message;
+    resultEl.className='hitl-result fail';
+    resultEl.style.display='block';
+    resultEl.textContent='Error: '+e.message;
+    btn.disabled=false;
+    btn.innerHTML='⚡ Re-certify Batch '+batchNum;
   }
 }
 
 function restart(){
   state.logs={};state.roots={};state.benchmark=[];state.verification=[];
+  state.gasResults={};state.failedBatches=[];
   document.getElementById('logPreview').style.display='none';
   document.getElementById('summaryGrid').style.display='none';
-  document.getElementById('restartBtn').style.display='none';
-  document.getElementById('anchorBtn').style.display='none';
-  document.getElementById('proveBtn').style.display='none';
-  document.getElementById('verifyBtn').style.display='none';
+  ['restartBtn','hitlBtn','etherscanBtn','anchorBtn','proveBtn','verifyBtn'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
   document.getElementById('gen-status').textContent='';
   goToScreen(1);
 }

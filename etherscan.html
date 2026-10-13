@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZKLog — On-Chain Transaction Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+  :root{
+    --bg:#080b12;--surface:#0e1420;--surface2:#151c2c;--border:#1e2d45;
+    --accent:#00d4ff;--accent2:#7b61ff;--green:#00ff88;--red:#ff4466;
+    --yellow:#ffcc00;--text:#e8edf5;--muted:#5a6a82;
+    --mono:'IBM Plex Mono',monospace;--sans:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;padding:40px 24px;}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:40px;max-width:960px;margin-left:auto;margin-right:auto;}
+  .back-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:0.08em;
+    cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--accent);
+    text-decoration:none;transition:all 0.2s;}
+  .back-btn:hover{border-color:var(--accent);background:rgba(0,212,255,0.06);}
+  .header-title{font-size:1.4rem;font-weight:600;}
+  .header-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px;}
+  .network-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;
+    border:1px solid var(--border);border-radius:20px;font-family:var(--mono);font-size:11px;
+    color:var(--muted);margin-left:auto;}
+  .net-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.5s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  .content{max-width:960px;margin:0 auto;}
+  .section{margin-bottom:32px;}
+  .section-label{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+  .batch-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    margin-bottom:12px;overflow:hidden;transition:border-color 0.2s;}
+  .batch-card:hover{border-color:rgba(0,212,255,0.3);}
+  .batch-header{display:flex;align-items:center;gap:16px;padding:16px 20px;
+    border-bottom:1px solid var(--border);background:var(--surface2);}
+  .batch-num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);width:72px;}
+  .batch-id{font-family:var(--mono);font-size:11px;color:var(--muted);flex:1;}
+  .pred-pills{display:flex;gap:6px;}
+  .pill{padding:2px 8px;border-radius:4px;font-family:var(--mono);font-size:10px;font-weight:600;}
+  .pill-pass{background:rgba(0,255,136,0.12);color:var(--green);border:1px solid rgba(0,255,136,0.3);}
+  .pill-fail{background:rgba(255,68,102,0.12);color:var(--red);border:1px solid rgba(255,68,102,0.3);}
+  .pill-pending{background:rgba(90,106,130,0.15);color:var(--muted);border:1px solid var(--border);}
+  .tx-rows{padding:12px 20px;display:flex;flex-direction:column;gap:8px;}
+  .tx-row{display:flex;align-items:center;gap:12px;}
+  .tx-type{font-family:var(--mono);font-size:10px;color:var(--muted);width:120px;flex-shrink:0;
+    text-transform:uppercase;letter-spacing:0.06em;}
+  .tx-hash-link{font-family:var(--mono);font-size:11px;color:var(--accent);
+    text-decoration:none;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .tx-hash-link:hover{text-decoration:underline;}
+  .tx-open-btn{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;
+    border-radius:6px;font-family:var(--mono);font-size:10px;font-weight:600;
+    border:1px solid var(--border);background:transparent;color:var(--accent);
+    text-decoration:none;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
+  .tx-open-btn:hover{border-color:var(--accent);background:rgba(0,212,255,0.06);}
+  .merkle-root-row{display:flex;align-items:center;gap:12px;padding:10px 20px;
+    background:rgba(123,97,255,0.04);border-top:1px solid var(--border);}
+  .root-label{font-family:var(--mono);font-size:10px;color:var(--muted);width:120px;flex-shrink:0;
+    text-transform:uppercase;letter-spacing:0.06em;}
+  .root-val{font-family:var(--mono);font-size:10px;color:var(--accent2);flex:1;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .contract-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .contract-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .contract-row:last-child{border-bottom:none;}
+  .contract-label{font-family:var(--mono);font-size:11px;color:var(--muted);width:200px;flex-shrink:0;}
+  .contract-addr{font-family:var(--mono);font-size:11px;color:var(--accent);flex:1;}
+  .empty-state{text-align:center;padding:60px 20px;font-family:var(--mono);font-size:13px;
+    color:var(--muted);border:1px dashed var(--border);border-radius:12px;}
+  .summary-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px;}
+  .strip-stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:14px 16px;text-align:center;}
+  .strip-val{font-family:var(--mono);font-size:1.4rem;font-weight:600;margin-bottom:2px;}
+  .strip-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+  .loading{text-align:center;padding:48px;font-family:var(--mono);font-size:12px;color:var(--accent);}
+  .spin{display:inline-block;animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<header style="max-width:960px;margin:0 auto 40px;">
+  <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+  <div>
+    <div class="header-title">On-Chain Transaction Explorer</div>
+    <div class="header-sub">All ZKLog transactions on Ethereum Sepolia — verified Merkle roots &amp; ZK proofs</div>
+  </div>
+  <div class="network-badge"><div class="net-dot"></div>Sepolia Testnet</div>
+</header>
+
+<div class="content">
+
+  <!-- Summary strip -->
+  <div class="summary-strip" id="summaryStrip">
+    <div class="loading"><span class="spin">⟳</span> Loading...</div>
+  </div>
+
+  <!-- Batch transactions -->
+  <div class="section">
+    <div class="section-label">Batch Anchor Transactions</div>
+    <div id="batchList"><div class="loading"><span class="spin">⟳</span> Reading local pipeline data...</div></div>
+  </div>
+
+  <!-- Deployed contracts -->
+  <div class="section">
+    <div class="section-label">Deployed Contracts</div>
+    <div class="contract-section" id="contractList">
+      <div class="loading"><span class="spin">⟳</span> Loading...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SEPOLIA_TX   = 'https://sepolia.etherscan.io/tx/';
+const SEPOLIA_ADDR = 'https://sepolia.etherscan.io/address/';
+
+// Attempt to load all data from server-side JSON files via the /api/ status endpoint
+// and from the static files the pipeline writes out.
+
+async function safeGet(url) {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (_) { return null; }
+}
+
+async function init() {
+  // Fetch everything we need
+  const [
+    anchoredIds,
+    verificationResults,
+    allRoots,
+    contractAddresses,
+    previewSummary,
+  ] = await Promise.all([
+    safeGet('/anchored_ids.json'),
+    safeGet('/verification_results.json'),
+    safeGet('/all_roots.json'),
+    safeGet('/contract_addresses.json'),
+    safeGet('/lanl_preprocess_summary.json'),
+  ]);
+
+  // ----- Summary strip -----
+  renderSummary(verificationResults, allRoots, previewSummary);
+
+  // ----- Batch list -----
+  renderBatches(anchoredIds, verificationResults, allRoots);
+
+  // ----- Contracts -----
+  renderContracts(contractAddresses);
+}
+
+function renderSummary(verResults, roots, previewSummary) {
+  const strip = document.getElementById('summaryStrip');
+  const totalBatches = verResults ? verResults.length : (roots ? Object.keys(roots).length : 0);
+  const totalPass = verResults ? verResults.filter(r => r.count_predicate === 'PASS' && r.sev_predicate === 'PASS').length : 0;
+  const countPass = verResults ? verResults.filter(r => r.count_predicate === 'PASS').length : 0;
+  const sevPass   = verResults ? verResults.filter(r => r.sev_predicate === 'PASS').length : 0;
+  const datasetMode = previewSummary ? previewSummary.mode : 'n/a';
+  const linesScanned = previewSummary ? (previewSummary.lines_scanned || 0).toLocaleString() : 'n/a';
+
+  strip.innerHTML = `
+    <div class="strip-stat"><div class="strip-val" style="color:var(--accent)">${totalBatches}</div><div class="strip-label">Batches Anchored</div></div>
+    <div class="strip-stat"><div class="strip-val" style="color:var(--green)">${totalPass}</div><div class="strip-label">Fully Clean</div></div>
+    <div class="strip-stat"><div class="strip-val" style="color:var(--accent2)">${countPass}/${totalBatches}</div><div class="strip-label">Count PASS</div></div>
+    <div class="strip-stat"><div class="strip-val" style="color:var(--accent2)">${sevPass}/${totalBatches}</div><div class="strip-label">Severity PASS</div></div>
+    <div class="strip-stat"><div class="strip-val" style="color:var(--yellow);font-size:1rem">${datasetMode.toUpperCase()}</div><div class="strip-label">Dataset Mode</div></div>
+    <div class="strip-stat"><div class="strip-val" style="color:var(--muted);font-size:1rem">${linesScanned}</div><div class="strip-label">LANL Lines Scanned</div></div>`;
+}
+
+function renderBatches(anchoredIds, verResults, roots) {
+  const container = document.getElementById('batchList');
+
+  if (!anchoredIds || Object.keys(anchoredIds).length === 0) {
+    container.innerHTML = `<div class="empty-state">No anchored batches found.<br>Run the pipeline first from the dashboard.</div>`;
+    return;
+  }
+
+  // Index verification results by batch name
+  const verByBatch = {};
+  if (verResults) verResults.forEach(r => verByBatch[r.batch] = r);
+
+  container.innerHTML = '';
+  const entries = Object.entries(anchoredIds);
+
+  entries.forEach(([batchName, anchoredId], idx) => {
+    const ver = verByBatch[batchName] || {};
+    const root = roots ? roots[batchName] : null;
+
+    const countPred = ver.count_predicate;
+    const sevPred   = ver.sev_predicate;
+    const countPill = countPred === 'PASS' ? 'pill-pass' : countPred === 'FAIL' ? 'pill-fail' : 'pill-pending';
+    const sevPill   = sevPred   === 'PASS' ? 'pill-pass' : sevPred   === 'FAIL' ? 'pill-fail' : 'pill-pending';
+
+    // We store TX hashes in verification_results.json if available
+    // anchoredId format is batch_N_TIMESTAMP — use it as the Etherscan search term
+    const card = document.createElement('div');
+    card.className = 'batch-card';
+    card.innerHTML = `
+      <div class="batch-header">
+        <div class="batch-num">BATCH ${idx + 1}</div>
+        <div class="batch-id">${anchoredId}</div>
+        <div class="pred-pills">
+          <span class="pill ${countPill}">Count: ${countPred || '—'}</span>
+          <span class="pill ${sevPill}">Severity: ${sevPred || '—'}</span>
+        </div>
+      </div>
+      <div class="tx-rows">
+        <div class="tx-row">
+          <div class="tx-type">Anchor Root</div>
+          <div class="tx-hash-link" id="anchor-hash-${idx}">—</div>
+          <a class="tx-open-btn" id="anchor-link-${idx}" href="#" target="_blank" rel="noopener">↗ Etherscan</a>
+        </div>
+        <div class="tx-row">
+          <div class="tx-type">Count Proof</div>
+          <div class="tx-hash-link">Verified via view call (no on-chain TX)</div>
+          <span class="pill ${countPill}" style="flex-shrink:0">${countPred || '—'}</span>
+        </div>
+        <div class="tx-row">
+          <div class="tx-type">Severity Proof</div>
+          <div class="tx-hash-link">Verified via view call (no on-chain TX)</div>
+          <span class="pill ${sevPill}" style="flex-shrink:0">${sevPred || '—'}</span>
+        </div>
+      </div>
+      ${root ? `
+      <div class="merkle-root-row">
+        <div class="root-label">Merkle Root</div>
+        <div class="root-val" title="${root}">${root}</div>
+      </div>` : ''}`;
+    container.appendChild(card);
+
+    // Use direct TX hash from verification_results.json (written by anchor_all.js + verify_onchain.js)
+    // Fall back to Etherscan search by anchoredId if txHash is missing (old run format)
+    const txHash = ver.txHash || null;
+    const txUrl  = txHash
+        ? `${SEPOLIA_TX}${txHash}`
+        : `https://sepolia.etherscan.io/search?f=0&q=${encodeURIComponent(anchoredId)}`;
+
+    const hashEl = document.getElementById(`anchor-hash-${idx}`);
+    const linkEl = document.getElementById(`anchor-link-${idx}`);
+    if (hashEl) hashEl.textContent = txHash || `Search: ${anchoredId}`;
+    if (linkEl) linkEl.href = txUrl;
+  });
+}
+
+function renderContracts(addresses) {
+  const container = document.getElementById('contractList');
+  if (!addresses) {
+    container.innerHTML = `<div class="empty-state">contract_addresses.json not found.<br>Deploy contracts and re-run.</div>`;
+    return;
+  }
+
+  const labelMap = {
+    logAnchor:        'LogAnchor.sol',
+    logVerifier:      'Groth16Verifier (Count)',
+    severityVerifier: 'SeverityBatchVerifier',
+  };
+
+  container.innerHTML = Object.entries(addresses).map(([key, addr]) => `
+    <div class="contract-row">
+      <div class="contract-label">${labelMap[key] || key}</div>
+      <div class="contract-addr">${addr}</div>
+      <a class="tx-open-btn" href="${SEPOLIA_ADDR}${addr}" target="_blank" rel="noopener">↗ Etherscan</a>
+    </div>`).join('');
+}
+
+init();
+</script>
+</body>
+</html>

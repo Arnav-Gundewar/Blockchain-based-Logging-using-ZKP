@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-10-12T15:05:56.977Z",
+  "input": "./Dataset/auth.txt.gz",
+  "mode": "clean",
+  "lines_scanned": 3809243,
+  "filtered_out": 2813407,
+  "suspicious_pool": 1600,
+  "normal_pool": 1600,
+  "seed": 429550045,
+  "batch_size": 8,
+  "num_batches": 4,
+  "batches": [
+    {
+      "batch": 1,
+      "filename": "batch_1.json",
+      "suspiciousCount": 1,
+      "maxSeverity": 5,
+      "avgSeverity": "0.9",
+      "nullCount": 5,
+      "expectedMode": "CLEAN → PASS"
+    },
+    {
+      "batch": 2,
+      "filename": "batch_2.json",
+      "suspiciousCount": 1,
+      "maxSeverity": 5,
+      "avgSeverity": "0.6",
+      "nullCount": 5,
+      "expectedMode": "CLEAN → PASS"
+    },
+    {
+      "batch": 3,
+      "filename": "batch_3.json",
+      "suspiciousCount": 1,
+      "maxSeverity": 5,
+      "avgSeverity": "0.6",
+      "nullCount": 5,
+      "expectedMode": "CLEAN → PASS"
+    },
+    {
+      "batch": 4,
+      "filename": "batch_4.json",
+      "suspiciousCount": 1,
+      "maxSeverity": 5,
+      "avgSeverity": "0.6",
+      "nullCount": 6,
+      "expectedMode": "CLEAN → PASS"
+    }
+  ],
+  "severity_scheme": {
+    "basis": [
+      "MITRE ATT&CK T1110 (outcome/failure scoring)",
+      "Microsoft Privileged Access Reference (logon type risk tiers)",
+      "Kent 2015 LANL + NTLM lateral movement research (auth type scoring)"
+    ],
+    "null_handling": "pessimistic conditional imputation",
+    "range": "0–9"
+  }
+}

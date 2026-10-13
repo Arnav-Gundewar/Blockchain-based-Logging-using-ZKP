@@ -1,4 +1,22 @@
 {
-  "verifyProofGas": "231374",
-  "anchorRootGas": "145191"
+  "verifyProofGas": "225299",
+  "anchorRootGas": "240757",
+  "anchorRootGasPerBatch": [
+    240757,
+    240757,
+    240757,
+    240757
+  ],
+  "anchorRootGasUpdatedAt": "2026-10-12T15:09:00.347Z",
+  "verifyProofGasPerCall": [
+    225290,
+    225302,
+    225314,
+    225302,
+    225326,
+    225290,
+    225290,
+    225278
+  ],
+  "verifyProofGasUpdatedAt": "2026-10-12T15:10:40.531Z"
 }

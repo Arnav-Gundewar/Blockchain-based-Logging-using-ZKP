@@ -21,5 +21,11 @@ ignition/
 .DS_Store
 Thumbs.db
 
-#docs
+#custom
 docs/
+Review 1/
+Review 1.zip
+Dataset/
+anchored_ids.json
+allroots.json
+contract_address.json
