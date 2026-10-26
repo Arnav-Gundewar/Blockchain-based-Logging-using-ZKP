@@ -29,3 +29,7 @@ Dataset/
 anchored_ids.json
 allroots.json
 contract_address.json
+contents.txt
+targeted_evaluation_report.json
+targeted_ground_truth.json
+targeted_sample.js

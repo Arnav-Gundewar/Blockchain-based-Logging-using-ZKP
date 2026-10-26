@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-12T15:05:56.977Z",
+  "generated_at": "2026-10-26T07:34:52.735Z",
   "input": "./Dataset/auth.txt.gz",
-  "mode": "clean",
+  "mode": "mixed",
   "lines_scanned": 3809243,
   "filtered_out": 2813407,
   "suspicious_pool": 1600,
   "normal_pool": 1600,
-  "seed": 429550045,
+  "seed": 410101919,
   "batch_size": 8,
   "num_batches": 4,
   "batches": [
@@ -15,7 +15,7 @@
       "filename": "batch_1.json",
       "suspiciousCount": 1,
       "maxSeverity": 5,
-      "avgSeverity": "0.9",
+      "avgSeverity": "0.6",
       "nullCount": 5,
       "expectedMode": "CLEAN → PASS"
     },
@@ -34,17 +34,17 @@
       "suspiciousCount": 1,
       "maxSeverity": 5,
       "avgSeverity": "0.6",
-      "nullCount": 5,
+      "nullCount": 6,
       "expectedMode": "CLEAN → PASS"
     },
     {
       "batch": 4,
       "filename": "batch_4.json",
-      "suspiciousCount": 1,
+      "suspiciousCount": 5,
       "maxSeverity": 5,
-      "avgSeverity": "0.6",
+      "avgSeverity": "3.1",
       "nullCount": 6,
-      "expectedMode": "CLEAN → PASS"
+      "expectedMode": "ANOMALOUS → FAIL"
     }
   ],
   "severity_scheme": {

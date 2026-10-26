@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-10-22T05:31:44.264Z",
+  "dataset": "LANL Comprehensive Multi-Source Cyber Security Dataset (auth.txt.gz)",
+  "redteam_events": 749,
+  "batches_evaluated": 4,
+  "confusion_matrix": {
+    "TP": 0,
+    "FP": 0,
+    "TN": 4,
+    "FN": 0
+  },
+  "detection_metrics": {
+    "precision": "N/A (no flagged batches)",
+    "recall": "N/A (no redteam batches)",
+    "f1_score": "N/A",
+    "accuracy": 1,
+    "fpr": 0
+  },
+  "interpretation": {
+    "TP": "System flagged batch AND it contained a confirmed redteam event",
+    "FP": "System flagged batch BUT no redteam event found (may still be suspicious — redteam is sparse)",
+    "TN": "System cleared batch AND no redteam event found",
+    "FN": "System cleared batch BUT it contained a redteam event (missed attack)"
+  },
+  "system_performance": {
+    "avg_proof_ms": 1826,
+    "min_proof_ms": 1187,
+    "max_proof_ms": 6087,
+    "proof_circuits": 2,
+    "anchor_gas": 240754,
+    "verify_gas_per_proof": 225307,
+    "verify_gas_per_batch": 450614
+  },
+  "note_on_low_tp": "LANL redteam events cover ~0.00007% of all auth events. Low TP count is expected — not a system failure. Precision and FPR are the meaningful metrics here.",
+  "batch_details": [
+    {
+      "batch": "batch_1",
+      "system_verdict": "CLEARED",
+      "count_predicate": "PASS",
+      "sev_predicate": "PASS",
+      "ground_truth": "NO_REDTEAM",
+      "outcome": "TN",
+      "redteam_match": null,
+      "suspicious_logs": 1,
+      "max_severity": 5,
+      "avg_severity": 0.63,
+      "count_proof_ms": 6087,
+      "sev_proof_ms": 1242
+    },
+    {
+      "batch": "batch_2",
+      "system_verdict": "CLEARED",
+      "count_predicate": "PASS",
+      "sev_predicate": "PASS",
+      "ground_truth": "NO_REDTEAM",
+      "outcome": "TN",
+      "redteam_match": null,
+      "suspicious_logs": 1,
+      "max_severity": 5,
+      "avg_severity": 0.63,
+      "count_proof_ms": 1241,
+      "sev_proof_ms": 1234
+    },
+    {
+      "batch": "batch_3",
+      "system_verdict": "CLEARED",
+      "count_predicate": "PASS",
+      "sev_predicate": "PASS",
+      "ground_truth": "NO_REDTEAM",
+      "outcome": "TN",
+      "redteam_match": null,
+      "suspicious_logs": 1,
+      "max_severity": 5,
+      "avg_severity": 0.88,
+      "count_proof_ms": 1199,
+      "sev_proof_ms": 1195
+    },
+    {
+      "batch": "batch_4",
+      "system_verdict": "CLEARED",
+      "count_predicate": "PASS",
+      "sev_predicate": "PASS",
+      "ground_truth": "NO_REDTEAM",
+      "outcome": "TN",
+      "redteam_match": null,
+      "suspicious_logs": 1,
+      "max_severity": 5,
+      "avg_severity": 0.88,
+      "count_proof_ms": 1187,
+      "sev_proof_ms": 1224
+    }
+  ]
+}

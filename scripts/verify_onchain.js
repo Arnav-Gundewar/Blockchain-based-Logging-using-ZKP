@@ -78,8 +78,8 @@ async function main() {
         const anchoredId = typeof anchoredEntry === 'object' ? anchoredEntry.id    : anchoredEntry;
         const txHash     = typeof anchoredEntry === 'object' ? anchoredEntry.txHash : null;
 
-        const [storedRoot] = await logAnchor.getRoot(anchoredId);
-        const merkleOutput = JSON.parse(fs.readFileSync(`merkle_output_${batch}.json`));
+        const result = await logAnchor.getRoot(anchoredId);
+        const storedRoot = result[0];        const merkleOutput = JSON.parse(fs.readFileSync(`merkle_output_${batch}.json`));
         // storedRoot is BigInt from ethers — compare as strings to avoid type mismatch
         const rootMatches = storedRoot.toString() === merkleOutput.root.toString();
 

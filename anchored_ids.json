@@ -1,22 +1,22 @@
 {
   "batch_1": {
-    "id": "batch_1_1791817651095",
-    "txHash": "0x0a9b805e21401c5fa300225af70ded080e231003df586c40f1b52db78c73c4b6",
+    "id": "batch_1_1793000352099",
+    "txHash": "0xe9f2692eb9545ce661b70f7b48cdcb9f5fc5d57abfd75e8568eac1e5db627988",
     "gasUsed": 240757
   },
   "batch_2": {
-    "id": "batch_2_1791817651095",
-    "txHash": "0x26df1a4b3d90c8b81eca103959d449d9d55a22b5adc6e699a6883d0841c27c05",
+    "id": "batch_2_1793000352099",
+    "txHash": "0xf2ae2bd15d83ac4a581f9fd514c1d79ff078b56f42cc91b2c5314838132a5d4a",
     "gasUsed": 240757
   },
   "batch_3": {
-    "id": "batch_3_1791817651095",
-    "txHash": "0xe82545d57d2c74932a6a189850138780a4b5c54987f18cf78a07af158b1adc77",
+    "id": "batch_3_1793000352099",
+    "txHash": "0xacd0603516fe8dcbdce00a5195a80134ca046d685f8aecdbe8a9294b94cff5eb",
     "gasUsed": 240757
   },
   "batch_4": {
-    "id": "batch_4_1791817651095",
-    "txHash": "0x46ac7bd291a9ac0b8199a3bde05634673a5e1a47208f043efcb37a6e52978af3",
+    "id": "batch_4_1793000352099",
+    "txHash": "0xcb10b6629d7c22f33384931cd2f1db1ef5e62196f090c6d8f1295958d798ff90",
     "gasUsed": 240757
   }
 }

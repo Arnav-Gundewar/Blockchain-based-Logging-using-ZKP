@@ -1,0 +1,216 @@
+[
+  {
+    "id": 0,
+    "timestamp": "2024-01-01T01:27:06.000Z",
+    "severity": 5,
+    "event": "session_logoff",
+    "event_code": 1,
+    "user": "U1315@C2472",
+    "ip": "C2472",
+    "meta": {
+      "dst_user": "U1315@C2472",
+      "dst_computer": "C2472",
+      "auth_type": null,
+      "logon_type": "NetworkCleartext",
+      "orientation": "LogOff",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 4,
+        "auth_score": 2,
+        "logoff_penalty": -1
+      },
+      "null_fields": [
+        "auth_type"
+      ],
+      "imputation": "pessimistic"
+    }
+  },
+  {
+    "id": 1,
+    "timestamp": "2024-01-01T00:00:26.000Z",
+    "severity": 0,
+    "event": "successful_logon",
+    "event_code": 0,
+    "user": "U63@DOM1",
+    "ip": "C1666",
+    "meta": {
+      "dst_user": "U63@DOM1",
+      "dst_computer": "C1666",
+      "auth_type": null,
+      "logon_type": null,
+      "orientation": "TGS",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 0,
+        "auth_score": 0,
+        "logoff_penalty": 0
+      },
+      "null_fields": [
+        "logon_type",
+        "auth_type"
+      ],
+      "imputation": "benign"
+    }
+  },
+  {
+    "id": 2,
+    "timestamp": "2024-01-01T02:55:07.000Z",
+    "severity": 5,
+    "event": "session_logoff",
+    "event_code": 1,
+    "user": "U59@DOM1",
+    "ip": "C1634",
+    "meta": {
+      "dst_user": "U59@DOM1",
+      "dst_computer": "C1634",
+      "auth_type": null,
+      "logon_type": "NetworkCleartext",
+      "orientation": "LogOff",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 4,
+        "auth_score": 2,
+        "logoff_penalty": -1
+      },
+      "null_fields": [
+        "auth_type"
+      ],
+      "imputation": "pessimistic"
+    }
+  },
+  {
+    "id": 3,
+    "timestamp": "2024-01-01T06:54:05.000Z",
+    "severity": 5,
+    "event": "session_logoff",
+    "event_code": 1,
+    "user": "U59@DOM1",
+    "ip": "C1634",
+    "meta": {
+      "dst_user": "U59@DOM1",
+      "dst_computer": "C1634",
+      "auth_type": null,
+      "logon_type": "NetworkCleartext",
+      "orientation": "LogOff",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 4,
+        "auth_score": 2,
+        "logoff_penalty": -1
+      },
+      "null_fields": [
+        "auth_type"
+      ],
+      "imputation": "pessimistic"
+    }
+  },
+  {
+    "id": 4,
+    "timestamp": "2024-01-01T01:53:41.000Z",
+    "severity": 5,
+    "event": "successful_logon",
+    "event_code": 1,
+    "user": "U183@DOM5",
+    "ip": "C1634",
+    "meta": {
+      "dst_user": "U59@DOM1",
+      "dst_computer": "C1634",
+      "auth_type": "Negotiate",
+      "logon_type": "NetworkCleartext",
+      "orientation": "LogOn",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 4,
+        "auth_score": 1,
+        "logoff_penalty": 0
+      },
+      "null_fields": [],
+      "imputation": "none"
+    }
+  },
+  {
+    "id": 5,
+    "timestamp": "2024-01-01T00:00:32.000Z",
+    "severity": 0,
+    "event": "successful_logon",
+    "event_code": 0,
+    "user": "U4@DOM1",
+    "ip": "C568",
+    "meta": {
+      "dst_user": "U4@DOM1",
+      "dst_computer": "C586",
+      "auth_type": null,
+      "logon_type": null,
+      "orientation": "TGS",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 0,
+        "auth_score": 0,
+        "logoff_penalty": 0
+      },
+      "null_fields": [
+        "logon_type",
+        "auth_type"
+      ],
+      "imputation": "benign"
+    }
+  },
+  {
+    "id": 6,
+    "timestamp": "2024-01-01T00:00:03.000Z",
+    "severity": 0,
+    "event": "network_logon",
+    "event_code": 0,
+    "user": "U6@DOM1",
+    "ip": "C423",
+    "meta": {
+      "dst_user": "U7@DOM1",
+      "dst_computer": "C423",
+      "auth_type": "Kerberos",
+      "logon_type": "Network",
+      "orientation": "LogOn",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 0,
+        "auth_score": 0,
+        "logoff_penalty": 0
+      },
+      "null_fields": [],
+      "imputation": "none"
+    }
+  },
+  {
+    "id": 7,
+    "timestamp": "2024-01-01T04:22:55.000Z",
+    "severity": 5,
+    "event": "session_logoff",
+    "event_code": 1,
+    "user": "U113@DOM1",
+    "ip": "C1710",
+    "meta": {
+      "dst_user": "U113@DOM1",
+      "dst_computer": "C1710",
+      "auth_type": null,
+      "logon_type": "NetworkCleartext",
+      "orientation": "LogOff",
+      "outcome": "Success",
+      "score_breakdown": {
+        "outcome_score": 0,
+        "logon_score": 4,
+        "auth_score": 2,
+        "logoff_penalty": -1
+      },
+      "null_fields": [
+        "auth_type"
+      ],
+      "imputation": "pessimistic"
+    }
+  }
+]

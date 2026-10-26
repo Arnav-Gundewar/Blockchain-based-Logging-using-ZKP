@@ -1,5 +1,5 @@
 {
-  "verifyProofGas": "225299",
+  "verifyProofGas": "225308",
   "anchorRootGas": "240757",
   "anchorRootGasPerBatch": [
     240757,
@@ -7,16 +7,16 @@
     240757,
     240757
   ],
-  "anchorRootGasUpdatedAt": "2026-10-12T15:09:00.347Z",
+  "anchorRootGasUpdatedAt": "2026-10-26T07:40:00.662Z",
   "verifyProofGasPerCall": [
+    225314,
+    225314,
+    225314,
     225290,
-    225302,
+    225314,
     225314,
     225302,
-    225326,
-    225290,
-    225290,
-    225278
+    225302
   ],
-  "verifyProofGasUpdatedAt": "2026-10-12T15:10:40.531Z"
+  "verifyProofGasUpdatedAt": "2026-10-26T07:40:46.224Z"
 }

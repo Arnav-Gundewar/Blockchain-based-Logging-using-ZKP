@@ -5,10 +5,10 @@
     "sev_valid": "0",
     "countThreshold": 4,
     "sevThreshold": 5,
-    "witnessMs": 174,
-    "proofMs": 4815,
-    "sevWitnessMs": 147,
-    "sevProofMs": 1123
+    "witnessMs": 127,
+    "proofMs": 1139,
+    "sevWitnessMs": 123,
+    "sevProofMs": 1120
   },
   {
     "batch": "batch_2",
@@ -16,10 +16,10 @@
     "sev_valid": "0",
     "countThreshold": 4,
     "sevThreshold": 5,
-    "witnessMs": 146,
-    "proofMs": 1188,
-    "sevWitnessMs": 137,
-    "sevProofMs": 1094
+    "witnessMs": 139,
+    "proofMs": 1097,
+    "sevWitnessMs": 134,
+    "sevProofMs": 1096
   },
   {
     "batch": "batch_3",
@@ -27,20 +27,20 @@
     "sev_valid": "0",
     "countThreshold": 4,
     "sevThreshold": 5,
-    "witnessMs": 127,
-    "proofMs": 1102,
-    "sevWitnessMs": 141,
-    "sevProofMs": 1110
+    "witnessMs": 121,
+    "proofMs": 1183,
+    "sevWitnessMs": 125,
+    "sevProofMs": 1100
   },
   {
     "batch": "batch_4",
-    "count_valid": "1",
+    "count_valid": "0",
     "sev_valid": "0",
     "countThreshold": 4,
     "sevThreshold": 5,
-    "witnessMs": 138,
-    "proofMs": 1106,
-    "sevWitnessMs": 119,
-    "sevProofMs": 1065
+    "witnessMs": 137,
+    "proofMs": 1111,
+    "sevWitnessMs": 142,
+    "sevProofMs": 1104
   }
 ]

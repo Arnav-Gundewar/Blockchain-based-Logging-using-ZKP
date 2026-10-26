@@ -1,0 +1,60 @@
+[
+  {
+    "timestamp": "2026-10-26T07:39:07.998Z",
+    "batchName": "batch_4",
+    "analystNote": "",
+    "originalScores": [
+      5,
+      0,
+      5,
+      5,
+      5,
+      0,
+      0,
+      5
+    ],
+    "overriddenScores": [
+      5,
+      0,
+      5,
+      5,
+      5,
+      7,
+      0,
+      5
+    ],
+    "newRoot": "903464427439977916586704899088448083222328050365136029253019128291232004326",
+    "countPredicate": "FAIL",
+    "sevPredicate": "FAIL",
+    "txHash": "0x98d69b43aa30cb3d290f92783af62bf57c45e4d1e4f422de1211fe89049e5e5e"
+  },
+  {
+    "timestamp": "2026-10-26T07:40:20.434Z",
+    "batchName": "batch_3",
+    "analystNote": "",
+    "originalScores": [
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0
+    ],
+    "overriddenScores": [
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      3
+    ],
+    "newRoot": "12331585778041472830521042119018749327091859645138147062310664860395629199462",
+    "countPredicate": "PASS",
+    "sevPredicate": "FAIL",
+    "txHash": "0xacd0603516fe8dcbdce00a5195a80134ca046d685f8aecdbe8a9294b94cff5eb"
+  }
+]
